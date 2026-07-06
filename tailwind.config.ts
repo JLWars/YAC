@@ -17,6 +17,16 @@ const config: Config = {
           black: "#141414",
           cream: "#FFF7E6",
         },
+        affaires: {
+          anthracite: "#2B2B2B",
+          "anthracite-light": "#333333",
+          "anthracite-dark": "#222222",
+          "anthracite-deep": "#1A1A1A",
+          card: "#242424",
+          red: "#E23A2E",
+          "red-dark": "#C22F25",
+          yellow: "#F5C518",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],

@@ -1,14 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { business } from "@/lib/business";
-import { IconClose, IconMenu, IconPhone, IconStar } from "./icons";
+import { IconArrowRight, IconClose, IconMenu, IconPhone } from "./icons";
 
 const links = [
-  { href: "/", label: "Accueil" },
+  { href: "/limbattable", label: "Accueil" },
   { href: "/concept", label: "Le Concept" },
   { href: "/avis", label: "Avis clients" },
   { href: "/infos", label: "Infos pratiques" },
@@ -32,12 +33,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b-4 border-brand-black bg-white">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 sm:gap-2.5">
-          <IconStar className="h-7 w-7 shrink-0 text-brand-yellow sm:h-8 sm:w-8" />
-          <span className="font-display text-xl leading-none tracking-tight text-brand-black sm:text-2xl">
-            YAC{" "}
-            <span className="text-brand-red">L&apos;IMBATTABLE</span>
-          </span>
+        <Link href="/limbattable" className="flex items-center">
+          <Image
+            src="/logo-imbattable.png"
+            alt="YAC L'Imbattable — Discounter depuis 1974"
+            width={730}
+            height={352}
+            priority
+            className="h-10 w-auto sm:h-12"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -54,7 +58,14 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <Link
+            href="/affaires"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border-2 border-affaires-anthracite px-4 py-2 text-xs font-semibold uppercase tracking-wide text-affaires-anthracite transition-colors hover:bg-affaires-anthracite hover:text-white"
+          >
+            Voir aussi : YAC Affaires
+            <IconArrowRight className="h-3.5 w-3.5" />
+          </Link>
           <a
             href={business.phoneHref}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-2.5 font-display text-sm uppercase tracking-wide text-white shadow-[3px_3px_0_0_#141414] transition-transform hover:-translate-y-0.5"
@@ -96,6 +107,13 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href="/affaires"
+                className="flex min-h-[48px] items-center gap-2 rounded-lg px-3 text-sm font-semibold uppercase tracking-wide text-affaires-anthracite"
+              >
+                Voir aussi : YAC Affaires
+                <IconArrowRight className="h-4 w-4" />
+              </Link>
               <a
                 href={business.phoneHref}
                 className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 font-display text-base uppercase tracking-wide text-white shadow-[3px_3px_0_0_#141414]"

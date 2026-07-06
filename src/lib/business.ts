@@ -13,6 +13,20 @@ export const business = {
   sinceYear: 1974,
 };
 
+/** YAC Affaires — second magasin, même bâtiment, entrée voisine.
+ *  Coordonnées propres (adresse exacte, tél, horaires) : placeholders en
+ *  attente des infos client. */
+export const affaires = {
+  name: "YAC Affaires",
+  tagline: "Brico · Jardin · Déco",
+  proximity: "Même bâtiment, entrée voisine",
+  categories: ["Brico", "Jardin", "Déco"] as const,
+  // Placeholders — à compléter après RDV client
+  addressPlaceholder: "Adresse exacte à confirmer (même bâtiment que L'Imbattable)",
+  phonePlaceholder: "Numéro à confirmer",
+  hoursPlaceholder: "Horaires à confirmer",
+};
+
 export const mapsDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${business.addressQuery}`;
 export const mapsEmbedSrc = `https://www.google.com/maps?q=${business.addressQuery}&output=embed`;
 export const googleReviewsHref = `https://www.google.com/maps/search/?api=1&query=${business.addressQuery}`;

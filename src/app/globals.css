@@ -51,6 +51,17 @@ body {
   background-size: 14px 14px;
 }
 
+/* Vertical striated texture, like the Affaires storefront cladding */
+.bg-striated {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.045) 2px,
+    transparent 2px,
+    transparent 9px
+  );
+}
+
 /* Diagonal hazard-stripe accent strip */
 .bg-hazard-stripes {
   background-image: repeating-linear-gradient(

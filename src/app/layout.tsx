@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Work_Sans } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -19,13 +17,13 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "YAC L'Imbattable — Discounter depuis 1974 à Fréjus",
+  title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
   description:
-    "Déstockage de marchandises en tous genres à prix discount suite à saisies, liquidations, fins de séries, changement de collections. Ouvert 7j/7 à Fréjus.",
+    "YAC à Fréjus : deux magasins dans le même bâtiment. L'Imbattable, discounter généraliste depuis 1974, et YAC Affaires, le coin brico, jardin et déco.",
   openGraph: {
-    title: "YAC L'Imbattable — Discounter depuis 1974 à Fréjus",
+    title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
     description:
-      "Déstockage à prix discount : liquidations, fins de séries, changement de collections. Ouvert 7j/7 à Fréjus.",
+      "Deux magasins, un même bâtiment : L'Imbattable (discount généraliste depuis 1974) et YAC Affaires (brico, jardin, déco) à Fréjus.",
     locale: "fr_FR",
     type: "website",
   },
@@ -41,9 +39,7 @@ export default function RootLayout({
       <body
         className={`${anton.variable} ${workSans.variable} font-body antialiased bg-white text-brand-black`}
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

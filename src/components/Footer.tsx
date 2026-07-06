@@ -3,10 +3,12 @@ import { business, mapsDirectionsHref } from "@/lib/business";
 import { IconFacebook, IconPhone, IconPin, IconStar } from "./icons";
 
 const links = [
-  { href: "/", label: "Accueil" },
+  { href: "/", label: "Accueil YAC" },
+  { href: "/limbattable", label: "L'Imbattable" },
   { href: "/concept", label: "Le Concept" },
   { href: "/avis", label: "Avis clients" },
   { href: "/infos", label: "Infos pratiques" },
+  { href: "/affaires", label: "YAC Affaires" },
 ];
 
 export default function Footer() {
