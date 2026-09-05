@@ -137,6 +137,24 @@ export function IconBolt({ className }: { className?: string }) {
   );
 }
 
+export function IconInstagram({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function IconTiktok({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M16.6 5.82c-1-.88-1.6-2.14-1.6-3.52h-3.16v13.6a3.13 3.13 0 1 1-2.19-2.98V9.7a6.29 6.29 0 1 0 5.35 6.22v-6.9a8.06 8.06 0 0 0 4.65 1.48V7.35c-1.13 0-2.18-.5-3.05-1.53z" />
+    </svg>
+  );
+}
+
 export function IconTool({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">

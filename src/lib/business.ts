@@ -11,6 +11,13 @@ export const business = {
   facebookHref: "https://www.facebook.com/search/top?q=YAC%20L%27Imbattable%20Fr%C3%A9jus",
   category: "Boutique décoration et jardin",
   sinceYear: 1974,
+  heroLogo: {
+    src: "/logo-imbattable-hero.png",
+    width: 1448,
+    height: 1086,
+    alt: "Logo YAC L'Imbattable",
+  },
+  socialCta: "Suivez-nous sur nos réseaux pour être au courant de toutes nos bonnes affaires !",
 };
 
 /** YAC Affaires — second magasin, même bâtiment, entrée voisine.
@@ -25,7 +32,39 @@ export const affaires = {
   addressPlaceholder: "Adresse exacte à confirmer (même bâtiment que L'Imbattable)",
   phonePlaceholder: "Numéro à confirmer",
   hoursPlaceholder: "Horaires à confirmer",
+  heroLogo: {
+    src: "/logo-affaires-hero.png",
+    width: 1672,
+    height: 941,
+    alt: "Logo YAC Affaires",
+  },
+  socialCta: "Suivez-nous pour ne rien manquer de nos arrivages brico, jardin & déco !",
 };
+
+export const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=100069122850772",
+    icon: "facebook",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/yaclimbattable/reels/",
+    icon: "instagram",
+  },
+  {
+    name: "TikTok",
+    href: "https://www.tiktok.com/@yaclimbattable",
+    icon: "tiktok",
+  },
+] as const;
+
+export const galleryPhotos = [
+  { src: "/photos/magasin-1.jpg", alt: "Le magasin YAC à Fréjus" },
+  { src: "/photos/magasin-2.jpg", alt: "Rayons du magasin YAC à Fréjus" },
+  { src: "/photos/magasin-3.jpg", alt: "Intérieur du magasin YAC à Fréjus" },
+  { src: "/photos/magasin-4.jpg", alt: "Le magasin YAC à Fréjus" },
+] as const;
 
 export const mapsDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${business.addressQuery}`;
 export const mapsEmbedSrc = `https://www.google.com/maps?q=${business.addressQuery}&output=embed`;

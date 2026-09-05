@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import HeroLogoPanel from "@/components/HeroLogoPanel";
+import SocialLinks from "@/components/SocialLinks";
 import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
+import StoreGallery from "@/components/StoreGallery";
 import {
   IconArrowRight,
-  IconBolt,
   IconBox,
   IconClock,
   IconLamp,
@@ -80,16 +82,21 @@ export default function AffairesPage() {
             </span>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <h1 className="mt-6 max-w-3xl font-display text-[3rem] uppercase leading-[0.92] tracking-tight sm:text-[4.5rem] lg:text-[6rem]">
-              YAC
-              <br />
-              <span className="text-affaires-red">
-                Affaires
-                <IconBolt className="ml-2 inline-block h-[0.55em] w-[0.55em] -rotate-12 align-baseline text-affaires-yellow" />
-              </span>
-            </h1>
-          </Reveal>
+          <div className="mt-6 flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-12">
+            <div className="shrink-0">
+              <h1 className="sr-only">{affaires.name}</h1>
+              <HeroLogoPanel {...affaires.heroLogo} delay={0.08} />
+            </div>
+
+            <Reveal delay={0.11} className="w-full lg:w-auto">
+              <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
+                <p className="max-w-xs text-base font-semibold leading-snug text-white sm:max-w-sm sm:text-lg">
+                  {affaires.socialCta}
+                </p>
+                <SocialLinks variant="affaires" />
+              </div>
+            </Reveal>
+          </div>
 
           <Reveal delay={0.14}>
             <p className="mt-5 font-display text-2xl uppercase tracking-wide text-affaires-yellow sm:text-3xl">
@@ -213,6 +220,15 @@ export default function AffairesPage() {
           </div>
         </div>
       </section>
+
+      {/* GALERIE */}
+      <StoreGallery
+        title="Notre magasin"
+        accent="text-affaires-yellow"
+        variant="affaires"
+        dark
+        className="bg-affaires-anthracite-deep py-16 sm:py-20"
+      />
 
       {/* INFOS PRATIQUES — PLACEHOLDERS */}
       <section className="bg-brand-black py-16 text-white sm:py-20">

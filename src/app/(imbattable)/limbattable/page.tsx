@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import HeroLogoPanel from "@/components/HeroLogoPanel";
+import SocialLinks from "@/components/SocialLinks";
 import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
-import PromoBadge from "@/components/PromoBadge";
 import TestimonialCard from "@/components/TestimonialCard";
+import StoreGallery from "@/components/StoreGallery";
 import {
   IconArrowRight,
   IconClock,
@@ -79,9 +81,6 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-brand-red text-white">
         <div className="bg-halftone pointer-events-none absolute inset-0 text-black/10" />
-        <div className="pointer-events-none absolute -right-4 -top-6 z-10 sm:right-4 sm:top-2 lg:right-10">
-          <PromoBadge />
-        </div>
 
         <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6 sm:pb-28 sm:pt-20 lg:px-8 lg:pt-24">
           <Reveal>
@@ -90,13 +89,21 @@ export default function Home() {
             </span>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <h1 className="mt-6 max-w-3xl font-display text-[3rem] uppercase leading-[0.92] tracking-tight sm:text-[4.5rem] lg:text-[6rem]">
-              YAC
-              <br />
-              <span className="text-brand-yellow">L&apos;Imbattable</span>
-            </h1>
-          </Reveal>
+          <div className="mt-6 flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+            <div className="shrink-0">
+              <h1 className="sr-only">{business.name}</h1>
+              <HeroLogoPanel {...business.heroLogo} delay={0.08} />
+            </div>
+
+            <Reveal delay={0.11} className="w-full lg:ml-auto lg:w-auto">
+              <div className="flex flex-col items-center gap-4 text-center lg:items-end lg:text-right">
+                <p className="max-w-xs text-base font-semibold leading-snug text-white sm:max-w-sm sm:text-lg">
+                  {business.socialCta}
+                </p>
+                <SocialLinks variant="imbattable" />
+              </div>
+            </Reveal>
+          </div>
 
           <Reveal delay={0.14}>
             <p className="mt-5 font-display text-2xl uppercase tracking-wide text-brand-yellow sm:text-3xl">
@@ -202,6 +209,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* GALERIE */}
+      <StoreGallery
+        title="Notre magasin"
+        accent="text-brand-red"
+        variant="imbattable"
+        className="bg-white py-16 sm:py-20"
+      />
 
       {/* INFOS PREVIEW */}
       <section className="bg-brand-black py-16 text-white sm:py-20">
