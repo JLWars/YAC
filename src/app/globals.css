@@ -51,6 +51,32 @@ body {
   background-size: 14px 14px;
 }
 
+/* Radial "sunburst" rays behind the hero logo. Colour = currentColor,
+   caller sets opacity via a text-colour utility (e.g. text-white/5).
+   Origin is tunable via --sb-x / --sb-y (default: behind the left-column logo). */
+.bg-sunburst {
+  --sb-x: 30%;
+  --sb-y: 46%;
+  background-image: repeating-conic-gradient(
+    from 0deg at var(--sb-x) var(--sb-y),
+    currentColor 0deg 2.5deg,
+    transparent 2.5deg 13deg
+  );
+  -webkit-mask-image: radial-gradient(75% 75% at var(--sb-x) var(--sb-y), #000 0%, transparent 70%);
+  mask-image: radial-gradient(75% 75% at var(--sb-x) var(--sb-y), #000 0%, transparent 70%);
+}
+
+/* Irregular torn-paper top edge, for the bottom yellow banner */
+.edge-torn-top {
+  clip-path: polygon(
+    0 9px, 4% 2px, 8% 8px, 12% 1px, 16% 7px, 20% 3px, 24% 9px, 28% 2px,
+    32% 6px, 36% 0, 40% 8px, 44% 3px, 48% 9px, 52% 1px, 56% 7px, 60% 2px,
+    64% 8px, 68% 1px, 72% 6px, 76% 3px, 80% 9px, 84% 2px, 88% 7px, 92% 1px,
+    96% 8px, 100% 3px,
+    100% 100%, 0 100%
+  );
+}
+
 /* Vertical striated texture, like the Affaires storefront cladding */
 .bg-striated {
   background-image: repeating-linear-gradient(

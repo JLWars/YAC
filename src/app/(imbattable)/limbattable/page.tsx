@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import HeroLogoPanel from "@/components/HeroLogoPanel";
-import SocialLinks from "@/components/SocialLinks";
+import Hero from "@/components/hero/Hero";
+import FeatureStrip from "@/components/FeatureStrip";
+import BottomBanner from "@/components/BottomBanner";
 import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
@@ -79,68 +80,12 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-brand-red text-white">
-        <div className="bg-halftone pointer-events-none absolute inset-0 text-black/10" />
-
-        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6 sm:pb-28 sm:pt-20 lg:px-8 lg:pt-24">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border-2 border-brand-black bg-brand-yellow px-4 py-1.5 font-display text-xs uppercase tracking-wide text-brand-black sm:text-sm">
-              Fréjus · {business.category}
-            </span>
-          </Reveal>
-
-          <div className="mt-6 flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-            <div className="shrink-0">
-              <h1 className="sr-only">{business.name}</h1>
-              <HeroLogoPanel {...business.heroLogo} delay={0.08} />
-            </div>
-
-            <Reveal delay={0.11} className="w-full lg:ml-auto lg:w-auto">
-              <div className="flex flex-col items-center gap-4 text-center lg:items-end lg:text-right">
-                <p className="max-w-xs text-base font-semibold leading-snug text-white sm:max-w-sm sm:text-lg">
-                  {business.socialCta}
-                </p>
-                <SocialLinks variant="imbattable" />
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.14}>
-            <p className="mt-5 font-display text-2xl uppercase tracking-wide text-brand-yellow sm:text-3xl">
-              {business.slogan}
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
-              Déstockage de marchandises en tous genres à prix discount suite à saisies, liquidations, fins de
-              séries et changements de collections.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.26}>
-            <div className="mt-6">
-              <StarRating rating={business.rating} reviewCount={business.reviewCount} size="lg" dark />
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.32}>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <CTAButton href={mapsDirectionsHref} variant="secondary" icon={<IconPin className="h-4 w-4" />} external>
-                Voir l&apos;itinéraire
-              </CTAButton>
-              <CTAButton href={business.phoneHref} variant="outline-light" icon={<IconPhone className="h-4 w-4" />}>
-                Appeler maintenant
-              </CTAButton>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="bg-hazard-stripes h-5 w-full sm:h-6" />
-      </section>
+      <Hero variant="imbattable" />
+      <FeatureStrip features={business.features} />
+      <BottomBanner variant="imbattable" text={business.bottomBanner.text} />
 
       {/* STATS */}
-      <section className="relative z-10 mx-auto -mt-9 max-w-6xl px-4 sm:-mt-12 sm:px-6 lg:px-8">
+      <section className="relative z-10 mx-auto mt-14 max-w-6xl px-4 sm:mt-16 sm:px-6 lg:px-8">
         <Reveal>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             <StatTile value="1974" label="Discounter depuis" icon={<IconTag className="h-6 w-6" />} />

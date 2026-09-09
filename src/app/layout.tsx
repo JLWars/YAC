@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Work_Sans } from "next/font/google";
+import { Anton, Caveat, Work_Sans } from "next/font/google";
 import "./globals.css";
 
 const anton = Anton({
@@ -13,6 +13,13 @@ const workSans = Work_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-hand",
   display: "swap",
 });
 
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${anton.variable} ${workSans.variable} font-body antialiased bg-white text-brand-black`}
+        className={`${anton.variable} ${workSans.variable} ${caveat.variable} font-body antialiased bg-white text-brand-black`}
       >
         {children}
       </body>

@@ -31,6 +31,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
+        hand: ["var(--font-hand)", "cursive"],
       },
       keyframes: {
         wiggle: {

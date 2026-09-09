@@ -35,9 +35,10 @@ export function IconClock({ className }: { className?: string }) {
 }
 
 export function IconFacebook({ className }: { className?: string }) {
+  // Solid "f" lettermark — meant to sit white on a brand-blue circle.
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M13.5 21v-8.4h2.8l.4-3.3h-3.2V7.1c0-.95.26-1.6 1.63-1.6H17V2.5c-.3-.04-1.3-.13-2.47-.13-2.44 0-4.11 1.49-4.11 4.22v2.35H7.6v3.3h2.82V21h3.08z" />
+      <path d="M15.12 5.32H17V2.14A26.1 26.1 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.6H6.6v3.56h3.08V22h3.68v-9.14h3.06l.46-3.56h-3.52V7.05c0-1.03.28-1.73 1.76-1.73z" />
     </svg>
   );
 }
@@ -138,19 +139,19 @@ export function IconBolt({ className }: { className?: string }) {
 }
 
 export function IconInstagram({ className }: { className?: string }) {
+  // simple-icons glyph — white on the Instagram gradient circle.
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
     </svg>
   );
 }
 
 export function IconTiktok({ className }: { className?: string }) {
+  // simple-icons glyph — white on a black circle.
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M16.6 5.82c-1-.88-1.6-2.14-1.6-3.52h-3.16v13.6a3.13 3.13 0 1 1-2.19-2.98V9.7a6.29 6.29 0 1 0 5.35 6.22v-6.9a8.06 8.06 0 0 0 4.65 1.48V7.35c-1.13 0-2.18-.5-3.05-1.53z" />
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
     </svg>
   );
 }
@@ -167,6 +168,15 @@ export function IconQuote({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M9.5 6C6 6 3.5 8.7 3.5 12.5 3.5 15.8 5.7 18 8.5 18c1.9 0 3.3-1.3 3.3-3.1 0-1.7-1.2-2.9-2.7-2.9-.4 0-.7.1-.9.2.1-2.1 1.7-3.7 4-4.1L11.4 6H9.5zm10 0c-3.5 0-6 2.7-6 6.5 0 3.3 2.2 5.5 5 5.5 1.9 0 3.3-1.3 3.3-3.1 0-1.7-1.2-2.9-2.7-2.9-.4 0-.7.1-.9.2.1-2.1 1.7-3.7 4-4.1L21.4 6h-1.9z" />
+    </svg>
+  );
+}
+
+export function IconHeart({ className }: { className?: string }) {
+  // Loose, hand-drawn outline heart for the decorative doodles.
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M12 20.3S3.4 15.6 3.4 9.4c0-2.8 2.2-4.7 4.8-4.4 1.7.2 3 1.5 3.8 3 .8-1.5 2.1-2.8 3.8-3 2.6-.3 4.8 1.6 4.8 4.4 0 6.2-8.6 10.9-8.6 10.9z" />
     </svg>
   );
 }
