@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Caveat, Work_Sans } from "next/font/google";
 import "./globals.css";
+import { siteMeta } from "@/lib/business";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -24,13 +25,11 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
-  description:
-    "YAC à Fréjus : deux magasins dans le même bâtiment. L'Imbattable, discounter généraliste depuis 1974, et YAC Affaires, le coin brico, jardin et déco.",
+  title: siteMeta.title,
+  description: siteMeta.description,
   openGraph: {
-    title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
-    description:
-      "Deux magasins, un même bâtiment : L'Imbattable (discount généraliste depuis 1974) et YAC Affaires (brico, jardin, déco) à Fréjus.",
+    title: siteMeta.title,
+    description: siteMeta.ogDescription,
     locale: "fr_FR",
     type: "website",
   },

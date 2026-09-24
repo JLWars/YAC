@@ -7,48 +7,26 @@ import BottomBanner from "@/components/BottomBanner";
 import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
 import StoreGallery from "@/components/StoreGallery";
+import StoreAbout from "@/components/StoreAbout";
 import {
   IconArrowRight,
   IconBox,
   IconClock,
-  IconLamp,
-  IconLeaf,
   IconPhone,
   IconPin,
   IconStar,
   IconTag,
-  IconTool,
 } from "@/components/icons";
 import { affaires, business, mapsDirectionsHref } from "@/lib/business";
 
 export const metadata: Metadata = {
-  title: "YAC Affaires — Brico, Jardin & Déco à Fréjus",
-  description:
-    "YAC Affaires à Fréjus : brico, jardin et déco à prix discount. Même bâtiment que YAC L'Imbattable, entrée voisine.",
+  title: affaires.seo.title,
+  description: affaires.seo.description,
 };
 
-const categories = [
-  {
-    icon: IconTool,
-    title: "Brico",
-    text: "Outillage, quincaillerie et matériel de bricolage à prix cassés.",
-  },
-  {
-    icon: IconLeaf,
-    title: "Jardin",
-    text: "Mobilier extérieur, outillage et accessoires pour le jardin.",
-  },
-  {
-    icon: IconLamp,
-    title: "Déco",
-    text: "Luminaires, objets déco et petit mobilier pour la maison.",
-  },
-  {
-    icon: IconBox,
-    title: "Et bien plus",
-    text: "Arrivages et lots à découvrir directement en magasin.",
-  },
-];
+const offerIcons = { tag: IconTag, box: IconBox, star: IconStar };
+
+const categories = affaires.offer.items.map((item) => ({ ...item, icon: offerIcons[item.icon] }));
 
 const esprit = [
   {
@@ -75,13 +53,15 @@ export default function AffairesPage() {
       <Hero variant="affaires" />
       <FeatureStrip features={affaires.features} />
       <BottomBanner variant="affaires" text={affaires.bottomBanner.text} />
+      <StoreAbout variant="affaires" />
+      <StoreGallery variant="affaires" />
 
       {/* STATS + CATEGORIES */}
       <section className="bg-affaires-anthracite-deep pb-16 pt-14 sm:pb-20 sm:pt-16">
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-              <StatTile dark value="3" label="Univers : brico · jardin · déco" icon={<IconTool className="h-6 w-6" />} />
+              <StatTile dark value={affaires.newStat.value} label={affaires.newStat.label} icon={<IconStar className="h-6 w-6" />} />
               <StatTile dark value="2" label="Magasins, un seul bâtiment" icon={<IconPin className="h-6 w-6" />} />
               <StatTile dark value="1974" label="L'ADN discount YAC depuis" icon={<IconTag className="h-6 w-6" />} />
               <StatTile dark value="Bientôt" label="Horaires détaillés à venir" icon={<IconClock className="h-6 w-6" />} />
@@ -92,7 +72,7 @@ export default function AffairesPage() {
         <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
           <Reveal>
             <h2 className="max-w-2xl font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Brico, jardin, déco : <span className="text-affaires-red">le trio gagnant</span>
+              {affaires.offer.title} <span className="text-affaires-red">{affaires.offer.accent}</span>
             </h2>
           </Reveal>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -151,15 +131,6 @@ export default function AffairesPage() {
           </div>
         </div>
       </section>
-
-      {/* GALERIE */}
-      <StoreGallery
-        title="Notre magasin"
-        accent="text-affaires-yellow"
-        variant="affaires"
-        dark
-        className="bg-affaires-anthracite-deep py-16 sm:py-20"
-      />
 
       {/* INFOS PRATIQUES — PLACEHOLDERS */}
       <section className="bg-brand-black py-16 text-white sm:py-20">
@@ -242,7 +213,7 @@ export default function AffairesPage() {
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-brand-black sm:text-5xl">
-              Un projet brico, jardin ou déco ?
+              {affaires.closingTitle}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-brand-black/80">
               Passez nous voir à Fréjus — et profitez-en pour faire un tour chez L&apos;Imbattable, juste à

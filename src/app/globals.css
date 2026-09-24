@@ -151,3 +151,11 @@ body {
   -webkit-text-stroke: 1px var(--brand-black);
   paint-order: stroke fill;
 }
+
+/* Carrousels : défilement tactile conservé, barre de défilement masquée */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

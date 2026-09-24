@@ -81,20 +81,7 @@ export default function Hero({ variant }: Props) {
               </p>
             </Reveal>
 
-            {isAffaires ? (
-              <Reveal delay={0.26}>
-                <ul className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
-                  {affaires.categories.map((cat) => (
-                    <li
-                      key={cat}
-                      className="rounded-full border-2 border-black bg-affaires-yellow px-5 py-1.5 font-display text-sm uppercase tracking-wide text-brand-black shadow-[3px_3px_0_0_#000000] sm:text-base"
-                    >
-                      {cat}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ) : (
+            {isAffaires ? null : (
               <Reveal delay={0.26}>
                 <div className="mt-5">
                   <StarRating

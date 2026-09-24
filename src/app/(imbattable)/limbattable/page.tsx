@@ -9,6 +9,7 @@ import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
 import TestimonialCard from "@/components/TestimonialCard";
 import StoreGallery from "@/components/StoreGallery";
+import StoreAbout from "@/components/StoreAbout";
 import {
   IconArrowRight,
   IconClock,
@@ -83,6 +84,8 @@ export default function Home() {
       <Hero variant="imbattable" />
       <FeatureStrip features={business.features} />
       <BottomBanner variant="imbattable" text={business.bottomBanner.text} />
+      <StoreAbout variant="imbattable" />
+      <StoreGallery variant="imbattable" />
 
       {/* STATS */}
       <section className="relative z-10 mx-auto mt-14 max-w-6xl px-4 sm:mt-16 sm:px-6 lg:px-8">
@@ -154,14 +157,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* GALERIE */}
-      <StoreGallery
-        title="Notre magasin"
-        accent="text-brand-red"
-        variant="imbattable"
-        className="bg-white py-16 sm:py-20"
-      />
 
       {/* INFOS PREVIEW */}
       <section className="bg-brand-black py-16 text-white sm:py-20">

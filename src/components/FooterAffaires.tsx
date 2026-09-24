@@ -51,7 +51,7 @@ export default function FooterAffaires() {
         </div>
 
         <div className="mt-10 border-t border-white/15 pt-6 text-xs text-white/50">
-          © {new Date().getFullYear()} {affaires.name}. Brico, jardin &amp; décoration à Fréjus.
+          © {new Date().getFullYear()} {affaires.name}. {affaires.footerNote}
         </div>
       </div>
     </footer>

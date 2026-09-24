@@ -37,3 +37,6 @@ next-env.d.ts
 
 # local dev screenshots
 /screenshots
+
+# photos originales de la galerie (optimisées dans public/galerie via npm run photos)
+/photos-source/

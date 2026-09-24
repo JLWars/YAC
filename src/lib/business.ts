@@ -9,6 +9,13 @@ export type HeroFeature = {
   text: string;
 };
 
+/** Section « présentation » affichée sous le hero de chaque page magasin. */
+export type StoreAbout = { title: string; paragraphs: string[]; closing: string };
+
+/** En-tête de la galerie photos. Les photos elles-mêmes sont listées
+ *  automatiquement depuis public/galerie/<magasin>/ (voir npm run photos). */
+export type StoreGalleryContent = { title: string; subtitle: string };
+
 export const business = {
   name: "YAC L'Imbattable",
   slogan: "Discounter depuis 1974",
@@ -52,6 +59,23 @@ export const business = {
     { icon: "users", title: "UNE ÉQUIPE À VOTRE ÉCOUTE", text: "Conseils et accueil chaleureux" },
   ] as HeroFeature[],
   bottomBanner: { text: "L'Imbattable, bien plus qu'un magasin !" },
+  /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
+  logoStar: { src: "/logo-imbattable-star.png", width: 1448, height: 1086, alt: "Logo YAC L'Imbattable" },
+
+  about: {
+    title: "YAC L'Imbattable, votre référence discount depuis 1974.",
+    paragraphs: [
+      "Historiquement spécialisé dans le traitement de sinistres en tous genres (dégâts des eaux, incendies, inondations), le magasin a su faire évoluer son offre au fil du temps. Depuis longtemps désormais, les arrivages proviennent de fins de séries, changements de collections, sur-stocks et faillites, pour vous garantir toujours les meilleures affaires.",
+      "Côté ouverture, le chemin parcouru est tout aussi remarquable : du premier samedi de chaque mois, pendant huit jours, à une ouverture 7j/7 depuis 2018. Une accessibilité totale, pour une offre toujours plus large, disponible chaque jour de la semaine.",
+    ],
+    closing:
+      "YAC L'Imbattable : plus de 50 ans d'expertise, une seule promesse : l'imbattable, tous les jours.",
+  } as StoreAbout,
+
+  gallery: {
+    title: "Le magasin en images",
+    subtitle: "Faites le tour des rayons avant de venir !",
+  } as StoreGalleryContent,
 };
 
 /** YAC Affaires — second magasin, même bâtiment, entrée voisine.
@@ -59,9 +83,11 @@ export const business = {
  *  attente des infos client. */
 export const affaires = {
   name: "YAC Affaires",
-  tagline: "Brico · Jardin · Déco",
+  tagline: "La nouvelle adresse de la bonne affaire",
   proximity: "Même bâtiment, entrée voisine",
-  categories: ["Brico", "Jardin", "Déco"] as const,
+  /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
+  logoStar: { src: "/logo-affaires-star.png", width: 1448, height: 1086, alt: "Logo YAC Affaires" },
+  footerNote: "Pièces uniques & petites séries à Fréjus.",
   // Placeholders — à compléter après RDV client
   addressPlaceholder: "Adresse exacte à confirmer (même bâtiment que L'Imbattable)",
   phonePlaceholder: "Numéro à confirmer",
@@ -72,30 +98,87 @@ export const affaires = {
     height: 941,
     alt: "Logo YAC Affaires",
   },
-  socialCta: "Suivez-nous pour ne rien manquer de nos arrivages brico, jardin & déco !",
+  socialCta: "Suivez-nous pour ne rien manquer de nos nouveaux arrivages !",
 
   // --- Hero redesign (même structure que L'Imbattable, identité Affaires) ---
-  heroEyebrow: "Fréjus – Brico, jardin & déco",
-  heroTagline: "Le coin brico, jardin & déco",
+  heroEyebrow: "Fréjus – Pièces uniques & petites séries",
+  heroTagline: "Pièces uniques, prix imbattables",
   heroDescription:
-    "Les bonnes affaires YAC, version maison et extérieur : outillage, jardin et décoration à prix discount, dans le même bâtiment que L'Imbattable — entrée voisine.",
+    "Pièces uniques et petites séries issues de palettes de produits mélangés, à prix discount : des arrivages renouvelés en permanence, dans le même bâtiment que L'Imbattable — entrée voisine.",
   socialFollow: {
     title: "Suivez-nous sur nos réseaux",
-    subtitle: "pour ne rien manquer de nos arrivages brico, jardin & déco !",
+    subtitle: "pour ne rien manquer de nos nouveaux arrivages !",
     community: "Rejoignez notre communauté !",
   },
-  stickyNote: { text: "Des idées brico & déco toute l'année !" },
+  stickyNote: { text: "Une nouvelle trouvaille chaque jour !" },
   heroPhotos: {
     left: null as HeroPhoto,
     right: null as HeroPhoto,
   },
   features: [
-    { icon: "truck", title: "DES PRIX MALINS", text: "Sur l'outillage et le jardin" },
+    { icon: "truck", title: "DES PRIX MALINS", text: "Sur des pièces uniques" },
     { icon: "gem", title: "DES MARQUES VARIÉES", text: "Qualité et bonnes affaires" },
-    { icon: "leaf", title: "BRICO, JARDIN, DÉCO...", text: "Tout pour la maison et l'extérieur" },
+    { icon: "leaf", title: "PIÈCES UNIQUES, PETITES SÉRIES...", text: "Des arrivages renouvelés en permanence" },
     { icon: "users", title: "UNE ÉQUIPE À VOTRE ÉCOUTE", text: "Conseils et accueil chaleureux" },
   ] as HeroFeature[],
-  bottomBanner: { text: "YAC Affaires, la bonne affaire côté maison !" },
+  bottomBanner: { text: "YAC Affaires, la trouvaille du jour !" },
+
+  about: {
+    title: "YAC Affaires, la nouvelle adresse de la bonne affaire.",
+    paragraphs: [
+      "Depuis le 1er juillet 2026, juste au-dessus de YAC L'Imbattable, découvrez YAC Affaires. Même esprit, même promesse de prix imbattables, mais une approche différente : ici, place à la pièce unique et à la toute petite série, issues de palettes de produits mélangés. Une sélection surprenante et renouvelée en permanence, pour les chineurs en quête de la trouvaille du jour.",
+    ],
+    closing: "YAC Affaires : chaque visite est une découverte.",
+  } as StoreAbout,
+
+  gallery: {
+    title: "YAC Affaires en images",
+    subtitle: "Les trouvailles du moment… elles ne restent jamais longtemps !",
+  } as StoreGalleryContent,
+
+  // --- Contenu de la page /affaires ---
+  seo: {
+    title: "YAC Affaires — Pièces uniques & petites séries à Fréjus",
+    description:
+      "YAC Affaires à Fréjus : pièces uniques et petites séries à prix discount, arrivages renouvelés en permanence. Même bâtiment que YAC L'Imbattable, entrée voisine.",
+  },
+  newStat: { value: "2026", label: "Ouverture le 1er juillet" },
+  offer: {
+    title: "Pièces uniques, petites séries :",
+    accent: "la chasse est ouverte",
+    items: [
+      {
+        icon: "tag",
+        title: "Pièces uniques",
+        text: "Des articles souvent en un seul exemplaire, introuvables ailleurs.",
+      },
+      {
+        icon: "box",
+        title: "Petites séries",
+        text: "Quelques exemplaires seulement : quand c'est parti, c'est parti.",
+      },
+      {
+        icon: "star",
+        title: "Arrivages permanents",
+        text: "Des palettes de produits mélangés déballées en continu.",
+      },
+      {
+        icon: "box",
+        title: "Et bien plus",
+        text: "Arrivages et lots à découvrir directement en magasin.",
+      },
+    ] as { icon: "tag" | "box" | "star"; title: string; text: string }[],
+  },
+  closingTitle: "Envie de dénicher la trouvaille du jour ?",
+};
+
+/** Métadonnées globales du site (layout racine). */
+export const siteMeta = {
+  title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
+  description:
+    "YAC à Fréjus : deux magasins dans le même bâtiment. L'Imbattable, discounter généraliste depuis 1974, et YAC Affaires, la nouvelle adresse de la bonne affaire : pièces uniques et petites séries.",
+  ogDescription:
+    "Deux magasins, un même bâtiment : L'Imbattable (discount généraliste depuis 1974) et YAC Affaires (pièces uniques et petites séries) à Fréjus.",
 };
 
 export const socialLinks = [
@@ -117,13 +200,6 @@ export const socialLinks = [
     icon: "tiktok",
     blurb: "Vidéos et inspirations",
   },
-] as const;
-
-export const galleryPhotos = [
-  { src: "/photos/magasin-1.jpg", alt: "Le magasin YAC à Fréjus" },
-  { src: "/photos/magasin-2.jpg", alt: "Rayons du magasin YAC à Fréjus" },
-  { src: "/photos/magasin-3.jpg", alt: "Intérieur du magasin YAC à Fréjus" },
-  { src: "/photos/magasin-4.jpg", alt: "Le magasin YAC à Fréjus" },
 ] as const;
 
 export const mapsDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${business.addressQuery}`;

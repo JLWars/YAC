@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { business, affaires } from "@/lib/business";
-import { IconArrowRight, IconBolt, IconChevronDown, IconPhone, IconStar } from "./icons";
+import { IconArrowRight, IconChevronDown, IconPhone, IconStar } from "./icons";
 
 type StoreId = "imbattable" | "affaires";
 
@@ -24,24 +24,31 @@ const imbattableCategories = [
 
 /* ---------- Contenu des panneaux (partagé desktop / mobile) ---------- */
 
+type StarLogo = { src: string; width: number; height: number; alt: string };
+
+/** Logo « étoile » détouré, seul et en grand : pas de cadre, fond ni ombre. */
+function StoreLogo({ logo, compact }: { logo: StarLogo; compact: boolean }) {
+  return (
+    <Image
+      src={logo.src}
+      alt={logo.alt}
+      width={logo.width}
+      height={logo.height}
+      priority
+      sizes={compact ? "85vw" : "(min-width: 1024px) 40vw, 45vw"}
+      className={`h-auto w-[88%] object-contain ${
+        compact ? "max-h-[32dvh] max-w-sm" : "max-h-[50dvh] max-w-[36rem]"
+      }`}
+    />
+  );
+}
+
 function ImbattableBase({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className={`rounded-2xl bg-white p-3 shadow-[4px_4px_0_0_#141414] ${compact ? "w-40" : "w-44 sm:w-52 lg:w-64"}`}>
-        <Image
-          src="/logo-imbattable.png"
-          alt="Logo YAC L'Imbattable"
-          width={730}
-          height={352}
-          priority
-          className="h-auto w-full"
-        />
-      </div>
-      <h2 className="mt-5 font-display text-3xl uppercase leading-none tracking-tight text-white sm:text-4xl lg:text-5xl">
-        YAC <span className="text-brand-yellow">L&apos;Imbattable</span>
-      </h2>
-      <p className="mt-2 font-display text-base uppercase tracking-wide text-brand-yellow sm:text-lg">
-        Discounter depuis 1974
+    <div className="flex w-full flex-col items-center text-center">
+      <StoreLogo logo={business.logoStar} compact={compact} />
+      <p className="mt-2 font-display text-base uppercase tracking-wide text-brand-black sm:text-lg">
+        {business.slogan}
       </p>
     </div>
   );
@@ -71,21 +78,8 @@ function ImbattableDetails() {
 
 function AffairesBase({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className={`rounded-2xl bg-white p-3 shadow-[4px_4px_0_0_#000000] ${compact ? "w-40" : "w-44 sm:w-52 lg:w-64"}`}>
-        <Image
-          src="/logo-affaires.png"
-          alt="Logo YAC Affaires"
-          width={734}
-          height={345}
-          priority
-          className="h-auto w-full"
-        />
-      </div>
-      <h2 className="mt-5 flex items-center gap-2 font-display text-3xl uppercase leading-none tracking-tight text-white sm:text-4xl lg:text-5xl">
-        YAC <span className="text-affaires-red">Affaires</span>
-        <IconBolt className="h-6 w-6 text-affaires-yellow sm:h-8 sm:w-8" />
-      </h2>
+    <div className="flex w-full flex-col items-center text-center">
+      <StoreLogo logo={affaires.logoStar} compact={compact} />
       <p className="mt-2 font-display text-base uppercase tracking-wide text-affaires-yellow sm:text-lg">
         {affaires.tagline}
       </p>
@@ -96,17 +90,7 @@ function AffairesBase({ compact = false }: { compact?: boolean }) {
 function AffairesDetails() {
   return (
     <div className="flex flex-col items-center text-center">
-      <ul className="flex flex-wrap justify-center gap-2">
-        {affaires.categories.map((cat) => (
-          <li
-            key={cat}
-            className="rounded-full bg-affaires-anthracite-dark px-4 py-1.5 font-display text-xs uppercase tracking-wide text-affaires-yellow ring-1 ring-affaires-yellow/60 sm:text-sm"
-          >
-            {cat}
-          </li>
-        ))}
-      </ul>
-      <p className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/90 sm:text-sm">
+      <p className="inline-flex items-center gap-1.5 rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/90 sm:text-sm">
         <IconStar className="h-3.5 w-3.5 text-affaires-yellow" />
         {affaires.proximity}
       </p>
