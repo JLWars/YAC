@@ -94,9 +94,6 @@ function AffairesDetails() {
         <IconStar className="h-3.5 w-3.5 text-affaires-yellow" />
         {affaires.proximity}
       </p>
-      <p className="mt-2 text-xs italic text-white/60 sm:text-sm">
-        Adresse &amp; horaires : infos à venir
-      </p>
     </div>
   );
 }

@@ -10,9 +10,12 @@ type HeroLogoPanelProps = {
   height: number;
   delay?: number;
   className?: string;
+  /** Marge transparente à resserrer en haut et en bas, en fraction de la largeur
+   *  (marges négatives : l'image n'est pas rognée, l'ombre reste visible). */
+  trimY?: number;
 };
 
-export default function HeroLogoPanel({ src, alt, width, height, delay = 0, className }: HeroLogoPanelProps) {
+export default function HeroLogoPanel({ src, alt, width, height, delay = 0, className, trimY = 0 }: HeroLogoPanelProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -28,6 +31,7 @@ export default function HeroLogoPanel({ src, alt, width, height, delay = 0, clas
         width={width}
         height={height}
         priority
+        style={trimY ? { marginTop: `-${trimY * 100}%`, marginBottom: `-${trimY * 100}%` } : undefined}
         className="h-auto w-full drop-shadow-[10px_14px_14px_rgba(0,0,0,0.5)]"
       />
     </motion.div>

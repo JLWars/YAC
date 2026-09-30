@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { affaires } from "@/lib/business";
-import { IconBolt, IconPin } from "./icons";
+import { affaires, business } from "@/lib/business";
+import { IconBolt, IconPhone, IconPin } from "./icons";
 
 const links = [
   { href: "/", label: "Accueil YAC" },
@@ -21,7 +21,7 @@ export default function FooterAffaires() {
               </span>
             </div>
             <p className="mt-4 text-sm text-white/70">
-              {affaires.tagline}. {affaires.proximity} de YAC L&apos;Imbattable, à Fréjus.
+              {affaires.tagline}. {affaires.locationShort}, à Fréjus.
             </p>
           </div>
 
@@ -43,9 +43,14 @@ export default function FooterAffaires() {
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               <li className="flex items-start gap-2">
                 <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-affaires-yellow" />
-                {affaires.addressPlaceholder}
+                {affaires.locationShort}
               </li>
-              <li className="italic text-white/50">Téléphone et horaires : à venir</li>
+              <li className="flex items-start gap-2">
+                <IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-affaires-yellow" />
+                <a href={business.phoneHref} className="hover:text-white">
+                  Accueil YAC : {business.phoneDisplay}
+                </a>
+              </li>
             </ul>
           </div>
         </div>

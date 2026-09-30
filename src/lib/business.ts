@@ -16,6 +16,28 @@ export type StoreAbout = { title: string; paragraphs: string[]; closing: string 
  *  automatiquement depuis public/galerie/<magasin>/ (voir npm run photos). */
 export type StoreGalleryContent = { title: string; subtitle: string };
 
+/** Textes du hero dont certains champs sont facultatifs d'un magasin à l'autre.
+ *  `heroEyebrow` absent = aucune étiquette au-dessus du logo. */
+export type StoreHeroText = { heroEyebrow?: string };
+
+/** PNG détourés (fond transparent) utilisés comme logo principal de chaque magasin :
+ *  hero, carte de la home et header partagent le même fichier. */
+const imbattableLogo = {
+  src: "/logo-imbattable-hero.png",
+  width: 1448,
+  height: 1086,
+  alt: "Logo YAC L'Imbattable",
+};
+
+/** Logo étoile au « YAC » jaune. Le PNG a ~10-11 % (de sa largeur) de vide
+ *  transparent en haut et en bas. */
+const affairesLogo = {
+  src: "/logo-affaires-star.png",
+  width: 1448,
+  height: 1086,
+  alt: "Logo YAC Affaires",
+};
+
 export const business = {
   name: "YAC L'Imbattable",
   slogan: "Discounter depuis 1974",
@@ -29,16 +51,12 @@ export const business = {
   facebookHref: "https://www.facebook.com/search/top?q=YAC%20L%27Imbattable%20Fr%C3%A9jus",
   category: "Boutique décoration et jardin",
   sinceYear: 1974,
-  heroLogo: {
-    src: "/logo-imbattable-hero.png",
-    width: 1448,
-    height: 1086,
-    alt: "Logo YAC L'Imbattable",
-  },
+  heroLogo: imbattableLogo,
+  /** Logo du header (en haut à gauche) : même PNG que le hero. */
+  headerLogo: imbattableLogo,
   socialCta: "Suivez-nous sur nos réseaux pour être au courant de toutes nos bonnes affaires !",
 
   // --- Hero redesign (maquette da_yac) ---
-  heroEyebrow: "Fréjus – Boutique décoration et jardin",
   heroTagline: "Discounter depuis 1974",
   heroDescription:
     "Déstockage de marchandises en tous genres à prix discount suite à saisies, liquidations, fins de séries et changements de collections.",
@@ -59,8 +77,8 @@ export const business = {
     { icon: "users", title: "UNE ÉQUIPE À VOTRE ÉCOUTE", text: "Conseils et accueil chaleureux" },
   ] as HeroFeature[],
   bottomBanner: { text: "L'Imbattable, bien plus qu'un magasin !" },
-  /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
-  logoStar: { src: "/logo-imbattable-star.png", width: 1448, height: 1086, alt: "Logo YAC L'Imbattable" },
+  /** Logo PNG détouré, affiché seul et en grand sur la carte de la home (même PNG que le hero). */
+  logoStar: imbattableLogo,
 
   about: {
     title: "YAC L'Imbattable, votre référence discount depuis 1974.",
@@ -79,32 +97,30 @@ export const business = {
 };
 
 /** YAC Affaires — second magasin, même bâtiment, entrée voisine.
- *  Coordonnées propres (adresse exacte, tél, horaires) : placeholders en
- *  attente des infos client. */
+ *  Pas encore de coordonnées propres (tél, horaires) : rien n'est affiché
+ *  tant qu'elles ne sont pas fournies ; l'accueil YAC sert de contact. */
 export const affaires = {
   name: "YAC Affaires",
   tagline: "La nouvelle adresse de la bonne affaire",
   proximity: "Même bâtiment, entrée voisine",
+  /** Phrase de localisation de la section « Retrouvez-nous » de /affaires. */
+  locationNote: "YAC Affaires se trouve dans le même bâtiment que YAC L'Imbattable, entrée voisine.",
+  /** Version courte de locationNote, pour le footer. */
+  locationShort: "Dans le même bâtiment que YAC L'Imbattable, entrée voisine",
   /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
-  logoStar: { src: "/logo-affaires-star.png", width: 1448, height: 1086, alt: "Logo YAC Affaires" },
+  logoStar: affairesLogo,
   footerNote: "Pièces uniques & petites séries à Fréjus.",
-  // Placeholders — à compléter après RDV client
-  addressPlaceholder: "Adresse exacte à confirmer (même bâtiment que L'Imbattable)",
-  phonePlaceholder: "Numéro à confirmer",
-  hoursPlaceholder: "Horaires à confirmer",
-  heroLogo: {
-    src: "/logo-affaires-hero.png",
-    width: 1672,
-    height: 941,
-    alt: "Logo YAC Affaires",
-  },
+  /** trimY : resserre le vide transparent haut/bas (fraction de la largeur) pour
+   *  garder l'encombrement de l'ancien logo du hero, sans rien rogner. */
+  heroLogo: { ...affairesLogo, trimY: 0.07 },
+  /** Logo du header (en haut à gauche) : même PNG que le hero. */
+  headerLogo: affairesLogo,
   socialCta: "Suivez-nous pour ne rien manquer de nos nouveaux arrivages !",
 
   // --- Hero redesign (même structure que L'Imbattable, identité Affaires) ---
-  heroEyebrow: "Fréjus – Pièces uniques & petites séries",
   heroTagline: "Pièces uniques, prix imbattables",
   heroDescription:
-    "Pièces uniques et petites séries issues de palettes de produits mélangés, à prix discount : des arrivages renouvelés en permanence, dans le même bâtiment que L'Imbattable — entrée voisine.",
+    "Pièces uniques et petites séries issues de palettes de produits mélangés, à prix discount : des arrivages renouvelés en permanence, dans le même bâtiment que L'Imbattable, entrée voisine.",
   socialFollow: {
     title: "Suivez-nous sur nos réseaux",
     subtitle: "pour ne rien manquer de nos nouveaux arrivages !",
@@ -126,7 +142,7 @@ export const affaires = {
   about: {
     title: "YAC Affaires, la nouvelle adresse de la bonne affaire.",
     paragraphs: [
-      "Depuis le 1er juillet 2026, juste au-dessus de YAC L'Imbattable, découvrez YAC Affaires. Même esprit, même promesse de prix imbattables, mais une approche différente : ici, place à la pièce unique et à la toute petite série, issues de palettes de produits mélangés. Une sélection surprenante et renouvelée en permanence, pour les chineurs en quête de la trouvaille du jour.",
+      "Depuis le 1er juillet 2026, dans le même bâtiment que YAC L'Imbattable, entrée voisine, découvrez YAC Affaires. Même esprit, même promesse de prix imbattables, mais une approche différente : ici, place à la pièce unique et à la toute petite série, issues de palettes de produits mélangés. Une sélection surprenante et renouvelée en permanence, pour les chineurs en quête de la trouvaille du jour.",
     ],
     closing: "YAC Affaires : chaque visite est une découverte.",
   } as StoreAbout,

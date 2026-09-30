@@ -3,7 +3,7 @@ import HeroLogoPanel from "@/components/HeroLogoPanel";
 import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import { IconPhone, IconPin } from "@/components/icons";
-import { affaires, business, mapsDirectionsHref } from "@/lib/business";
+import { affaires, business, mapsDirectionsHref, type StoreHeroText } from "@/lib/business";
 import HeroBackdrop from "./HeroBackdrop";
 import BurstLines from "./BurstLines";
 import MarkerHighlight from "./MarkerHighlight";
@@ -17,7 +17,7 @@ type Props = {
 
 export default function Hero({ variant }: Props) {
   const isAffaires = variant === "affaires";
-  const data = isAffaires ? affaires : business;
+  const data: (typeof business | typeof affaires) & StoreHeroText = isAffaires ? affaires : business;
 
   const sectionBg = isAffaires
     ? "bg-affaires-anthracite text-white"
@@ -36,20 +36,22 @@ export default function Hero({ variant }: Props) {
       <StickyNote
         variant={variant}
         text={data.stickyNote.text}
-        className="right-3 top-4 z-20 hidden lg:block xl:right-8"
+        className="bottom-10 right-4 z-20 hidden lg:block xl:right-10"
       />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 pb-12 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20 lg:pt-20">
-        <Reveal>
-          <span
-            className={`inline-flex items-center gap-2 rounded-full border-2 px-4 py-1.5 font-display text-xs uppercase tracking-wide sm:text-sm ${badge}`}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-black" />
-            {data.heroEyebrow}
-          </span>
-        </Reveal>
+        {data.heroEyebrow ? (
+          <Reveal>
+            <span
+              className={`inline-flex items-center gap-2 rounded-full border-2 px-4 py-1.5 font-display text-xs uppercase tracking-wide sm:text-sm ${badge}`}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-black" />
+              {data.heroEyebrow}
+            </span>
+          </Reveal>
+        ) : null}
 
-        <div className="mt-8 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-8">
+        <div className={`${data.heroEyebrow ? "mt-8" : ""} grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-8`}>
           {/* Colonne gauche : marque + accroche + CTA */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <h1 className="sr-only">{data.name}</h1>

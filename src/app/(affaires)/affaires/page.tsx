@@ -11,7 +11,6 @@ import StoreAbout from "@/components/StoreAbout";
 import {
   IconArrowRight,
   IconBox,
-  IconClock,
   IconPhone,
   IconPin,
   IconStar,
@@ -60,11 +59,10 @@ export default function AffairesPage() {
       <section className="bg-affaires-anthracite-deep pb-16 pt-14 sm:pb-20 sm:pt-16">
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
               <StatTile dark value={affaires.newStat.value} label={affaires.newStat.label} icon={<IconStar className="h-6 w-6" />} />
               <StatTile dark value="2" label="Magasins, un seul bâtiment" icon={<IconPin className="h-6 w-6" />} />
               <StatTile dark value="1974" label="L'ADN discount YAC depuis" icon={<IconTag className="h-6 w-6" />} />
-              <StatTile dark value="Bientôt" label="Horaires détaillés à venir" icon={<IconClock className="h-6 w-6" />} />
             </div>
           </Reveal>
         </div>
@@ -132,7 +130,7 @@ export default function AffairesPage() {
         </div>
       </section>
 
-      {/* INFOS PRATIQUES — PLACEHOLDERS */}
+      {/* INFOS PRATIQUES */}
       <section className="bg-brand-black py-16 text-white sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -141,36 +139,19 @@ export default function AffairesPage() {
                 Retrouvez-nous <span className="text-affaires-yellow">à Fréjus</span>
               </h2>
               <p className="mt-4 max-w-lg text-white/80">
-                YAC Affaires se trouve dans le même bâtiment que YAC L&apos;Imbattable, entrée voisine.
+                {affaires.locationNote}
               </p>
 
-              <div className="mt-6 rounded-2xl border-2 border-dashed border-affaires-yellow/70 bg-white/5 p-5 sm:p-6">
-                <p className="font-display text-xs uppercase tracking-wide text-affaires-yellow sm:text-sm">
-                  À compléter — infos client à venir
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-white/70 sm:text-base">
-                  <li className="flex items-start gap-3">
-                    <IconPin className="mt-0.5 h-5 w-5 shrink-0 text-affaires-yellow" />
-                    <span className="italic">{affaires.addressPlaceholder}</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <IconClock className="mt-0.5 h-5 w-5 shrink-0 text-affaires-yellow" />
-                    <span className="italic">{affaires.hoursPlaceholder}</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <IconPhone className="mt-0.5 h-5 w-5 shrink-0 text-affaires-yellow" />
-                    <span className="italic">
-                      {affaires.phonePlaceholder} — en attendant, l&apos;accueil YAC répond au{" "}
-                      <a
-                        href={business.phoneHref}
-                        className="font-semibold not-italic text-white underline decoration-affaires-yellow underline-offset-4 hover:text-affaires-yellow"
-                      >
-                        {business.phoneDisplay}
-                      </a>
-                    </span>
-                  </li>
-                </ul>
-              </div>
+              <p className="mt-4 flex items-center gap-2 text-white/80">
+                <IconPhone className="h-5 w-5 shrink-0 text-affaires-yellow" />
+                Accueil YAC :{" "}
+                <a
+                  href={business.phoneHref}
+                  className="font-semibold text-white underline decoration-affaires-yellow underline-offset-4 hover:text-affaires-yellow"
+                >
+                  {business.phoneDisplay}
+                </a>
+              </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <CTAButton

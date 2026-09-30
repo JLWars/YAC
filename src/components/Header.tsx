@@ -34,14 +34,19 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b-4 border-brand-black bg-white">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
         <Link href="/limbattable" className="flex items-center">
-          <Image
-            src="/logo-imbattable.png"
-            alt="YAC L'Imbattable — Discounter depuis 1974"
-            width={730}
-            height={352}
-            priority
-            className="h-10 w-auto sm:h-12"
-          />
+          {/* Le PNG a ~18-20 % de marge transparente en haut et en bas : le cadre 1448/700
+              + object-cover masque ces marges (le logo reste entier) sans agrandir le header. */}
+          <span className="block aspect-[1448/700] h-12 overflow-hidden sm:h-16">
+            <Image
+              src={business.headerLogo.src}
+              alt={business.headerLogo.alt}
+              width={business.headerLogo.width}
+              height={business.headerLogo.height}
+              sizes="(min-width: 640px) 133px, 100px"
+              priority
+              className="h-full w-full object-cover"
+            />
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
