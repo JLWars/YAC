@@ -20,6 +20,10 @@ export type StoreGalleryContent = { title: string; subtitle: string };
  *  `heroEyebrow` absent = aucune étiquette au-dessus du logo. */
 export type StoreHeroText = { heroEyebrow?: string };
 
+/** Vide transparent autour du dessin d'un PNG, en % de sa largeur (left/right)
+ *  et de sa hauteur (top/bottom). */
+export type LogoCrop = { top: number; right: number; bottom: number; left: number };
+
 /** PNG détourés (fond transparent) utilisés comme logo principal de chaque magasin :
  *  hero, carte de la home et header partagent le même fichier. */
 const imbattableLogo = {
@@ -79,6 +83,13 @@ export const business = {
   bottomBanner: { text: "L'Imbattable, bien plus qu'un magasin !" },
   /** Logo PNG détouré, affiché seul et en grand sur la carte de la home (même PNG que le hero). */
   logoStar: imbattableLogo,
+  /** Zone dessinée de logo-imbattable-hero.png (1448×1086), mesurée avec sharp en
+   *  lecture seule : pixels d'alpha > 2 (au-dessous, voile invisible de détourage).
+   *  Boîte dessinée x 37→1418, y 195→864, soit 1382×670 px (ratio 2,06). */
+  logoStarCrop: { top: 17.96, right: 2.0, bottom: 20.35, left: 2.56 } as LogoCrop,
+  /** Correction d'échelle à l'œil sur la home : à hauteur égale, L'iMBATTABLE
+   *  (ratio 2,06) paraît plus gros qu'AFFAIRES (1,80). */
+  logoStarScale: 0.93,
 
   about: {
     title: "YAC L'Imbattable, votre référence discount depuis 1974.",
@@ -109,6 +120,11 @@ export const affaires = {
   locationShort: "Dans le même bâtiment que YAC L'Imbattable, entrée voisine",
   /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
   logoStar: affairesLogo,
+  /** Zone dessinée de logo-affaires-star.png (1448×1086), mesurée avec sharp en
+   *  lecture seule : pixels d'alpha > 2. Boîte dessinée x 25→1446, y 139→928,
+   *  soit 1422×790 px (ratio 1,80). */
+  logoStarCrop: { top: 12.8, right: 0.07, bottom: 14.46, left: 1.73 } as LogoCrop,
+  logoStarScale: 1,
   footerNote: "Pièces uniques & petites séries à Fréjus.",
   /** trimY : resserre le vide transparent haut/bas (fraction de la largeur) pour
    *  garder l'encombrement de l'ancien logo du hero, sans rien rogner. */

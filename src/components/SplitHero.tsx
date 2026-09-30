@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { business, affaires } from "@/lib/business";
+import { useEffect, useState, type ReactNode } from "react";
+import { business, affaires, type LogoCrop } from "@/lib/business";
 import { IconArrowRight, IconChevronDown, IconPhone, IconStar } from "./icons";
 
 type StoreId = "imbattable" | "affaires";
@@ -26,31 +26,78 @@ const imbattableCategories = [
 
 type StarLogo = { src: string; width: number; height: number; alt: string };
 
-/** Logo « étoile » détouré, seul et en grand : pas de cadre, fond ni ombre. */
-function StoreLogo({ logo, compact }: { logo: StarLogo; compact: boolean }) {
+type LogoProps = { logo: StarLogo; crop: LogoCrop; scale?: number; compact: boolean };
+
+/**
+ * Logo « étoile » détouré, seul et en grand : pas de cadre, fond ni ombre.
+ * Les deux cartes ont un cadre identique ; dedans, une boîte au ratio de la zone
+ * réellement dessinée (crop mesuré dans business.ts) prend toute la hauteur
+ * (× scale) et l'image déborde de cette boîte uniquement par son vide transparent
+ * (overflow visible : rien n'est coupé).
+ */
+function StoreLogo({ logo, crop, scale = 1, compact }: LogoProps) {
+  const cw = 100 - crop.left - crop.right;
+  const ch = 100 - crop.top - crop.bottom;
+  const drawnRatio = (logo.width * cw) / (logo.height * ch);
   return (
-    <Image
-      src={logo.src}
-      alt={logo.alt}
-      width={logo.width}
-      height={logo.height}
-      priority
-      sizes={compact ? "85vw" : "(min-width: 1024px) 40vw, 45vw"}
-      className={`h-auto w-[88%] object-contain ${
-        compact ? "max-h-[32dvh] max-w-sm" : "max-h-[50dvh] max-w-[36rem]"
+    <div
+      className={`flex aspect-[21/10] w-[88%] items-center justify-center ${
+        compact ? "max-h-[26dvh] max-w-sm" : "max-h-[min(40dvh,calc(100dvh-24rem))] max-w-[36rem]"
       }`}
-    />
+    >
+      <div className="relative" style={{ height: `${scale * 100}%`, aspectRatio: drawnRatio }}>
+        <Image
+          src={logo.src}
+          alt={logo.alt}
+          width={logo.width}
+          height={logo.height}
+          priority
+          sizes={compact ? "85vw" : "(min-width: 1024px) 40vw, 45vw"}
+          className="absolute max-w-none"
+          style={{
+            width: `${(100 * 100) / cw}%`,
+            height: `${(100 * 100) / ch}%`,
+            left: `${(-crop.left * 100) / cw}%`,
+            top: `${(-crop.top * 100) / ch}%`,
+          }}
+        />
+      </div>
+    </div>
   );
 }
 
-function ImbattableBase({ compact = false }: { compact?: boolean }) {
+type BaseProps = LogoProps & { tagline: ReactNode; children?: ReactNode };
+
+/**
+ * Logo + accroche (+ détails en desktop). Seuls le cadre du logo et l'accroche
+ * (même hauteur sur les deux panneaux) sont dans le flux : logos et accroches
+ * restent alignés. Les détails s'empilent juste sous l'accroche, en absolu,
+ * avec leur hauteur naturelle ; la place nécessaire est réservée par le pb du
+ * panneau.
+ */
+function StoreBase({ tagline, children, ...logo }: BaseProps) {
   return (
-    <div className="flex w-full flex-col items-center text-center">
-      <StoreLogo logo={business.logoStar} compact={compact} />
-      <p className="mt-2 font-display text-base uppercase tracking-wide text-brand-black sm:text-lg">
-        {business.slogan}
-      </p>
+    <div className="relative flex w-full flex-col items-center text-center">
+      <StoreLogo {...logo} />
+      {tagline}
+      {children ? <div className="absolute inset-x-0 top-full">{children}</div> : null}
     </div>
+  );
+}
+
+const taglineClass = "mt-2 font-display text-base uppercase tracking-wide sm:text-lg";
+
+function ImbattableBase({ compact = false, children }: { compact?: boolean; children?: ReactNode }) {
+  return (
+    <StoreBase
+      logo={business.logoStar}
+      crop={business.logoStarCrop}
+      scale={business.logoStarScale}
+      compact={compact}
+      tagline={<p className={`${taglineClass} text-brand-black`}>{business.slogan}</p>}
+    >
+      {children}
+    </StoreBase>
   );
 }
 
@@ -76,14 +123,17 @@ function ImbattableDetails() {
   );
 }
 
-function AffairesBase({ compact = false }: { compact?: boolean }) {
+function AffairesBase({ compact = false, children }: { compact?: boolean; children?: ReactNode }) {
   return (
-    <div className="flex w-full flex-col items-center text-center">
-      <StoreLogo logo={affaires.logoStar} compact={compact} />
-      <p className="mt-2 font-display text-base uppercase tracking-wide text-affaires-yellow sm:text-lg">
-        {affaires.tagline}
-      </p>
-    </div>
+    <StoreBase
+      logo={affaires.logoStar}
+      crop={affaires.logoStarCrop}
+      scale={affaires.logoStarScale}
+      compact={compact}
+      tagline={<p className={`${taglineClass} text-affaires-yellow`}>{affaires.tagline}</p>}
+    >
+      {children}
+    </StoreBase>
   );
 }
 
@@ -157,8 +207,10 @@ export default function SplitHero() {
     transition: `flex-grow 400ms ${EASE}`,
   });
 
+  /** Détails desktop : accroche → détails → bouton, mêmes espacements sur les
+   *  deux cartes, hauteur naturelle (Affaires plus court qu'Imbattable). */
   const detailsClass = (visible: boolean) =>
-    `flex flex-col items-center gap-5 transition-all duration-[450ms] ${
+    `mt-[clamp(0.75rem,3dvh,1.5rem)] flex w-full flex-col items-center gap-5 transition-all duration-[450ms] ${
       visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2.5 opacity-0"
     }`;
 
@@ -185,14 +237,19 @@ export default function SplitHero() {
           className="relative min-w-0 cursor-pointer overflow-hidden bg-brand-red outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-brand-yellow"
         >
           <div className="bg-halftone pointer-events-none absolute inset-0 text-black/10" />
-          <div className="relative flex h-full flex-col items-center justify-center gap-6 px-6 py-10 lg:px-10">
-            <ImbattableBase />
-            <div className={detailsClass(active === "imbattable")} aria-hidden={active !== "imbattable"}>
-              <ImbattableDetails />
-              <Link href="/limbattable" tabIndex={active === "imbattable" ? 0 : -1} onClick={(e) => e.stopPropagation()}>
-                <DiscoverCTA store="imbattable" />
-              </Link>
-            </div>
+          {/* pb = bandeau rayé (1rem) + marge (1,5rem) + place réservée aux détails
+              les plus longs (Imbattable : chips, avis, tél., bouton ≈ 14,5rem) */}
+          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[17rem] pt-6 lg:px-10">
+            <ImbattableBase>
+              <div className={detailsClass(active === "imbattable")} aria-hidden={active !== "imbattable"}>
+                <div>
+                  <ImbattableDetails />
+                </div>
+                <Link href="/limbattable" tabIndex={active === "imbattable" ? 0 : -1} onClick={(e) => e.stopPropagation()}>
+                  <DiscoverCTA store="imbattable" />
+                </Link>
+              </div>
+            </ImbattableBase>
           </div>
           <div className="bg-hazard-stripes absolute inset-x-0 bottom-0 h-4" />
         </section>
@@ -216,14 +273,19 @@ export default function SplitHero() {
           className="relative min-w-0 cursor-pointer overflow-hidden bg-affaires-anthracite outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-affaires-yellow"
         >
           <div className="bg-striated pointer-events-none absolute inset-0" />
-          <div className="relative flex h-full flex-col items-center justify-center gap-6 px-6 py-10 lg:px-10">
-            <AffairesBase />
-            <div className={detailsClass(active === "affaires")} aria-hidden={active !== "affaires"}>
-              <AffairesDetails />
-              <Link href="/affaires" tabIndex={active === "affaires" ? 0 : -1} onClick={(e) => e.stopPropagation()}>
-                <DiscoverCTA store="affaires" />
-              </Link>
-            </div>
+          {/* pb = bandeau rayé (1rem) + marge (1,5rem) + place réservée aux détails
+              les plus longs (Imbattable : chips, avis, tél., bouton ≈ 14,5rem) */}
+          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[17rem] pt-6 lg:px-10">
+            <AffairesBase>
+              <div className={detailsClass(active === "affaires")} aria-hidden={active !== "affaires"}>
+                <div>
+                  <AffairesDetails />
+                </div>
+                <Link href="/affaires" tabIndex={active === "affaires" ? 0 : -1} onClick={(e) => e.stopPropagation()}>
+                  <DiscoverCTA store="affaires" />
+                </Link>
+              </div>
+            </AffairesBase>
           </div>
           <div className="bg-hazard-stripes absolute inset-x-0 bottom-0 h-4" />
         </section>
