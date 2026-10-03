@@ -47,10 +47,9 @@ export const business = {
   slogan: "Discounter depuis 1974",
   phoneDisplay: "04 94 53 37 01",
   phoneHref: "tel:+33494533701",
-  address: "1683 route des Anciens Combattants d'AFN, 83600 Fréjus",
-  addressQuery: "1683+route+des+Anciens+Combattants+d'AFN,+83600+Fréjus",
-  rating: 4.2,
-  reviewCount: 888,
+  address: "1683 Rue des Combattants d'Afrique du Nord, 83600 Fréjus",
+  rating: 4.3,
+  reviewCount: 897,
   facebookFollowers: "20 000",
   facebookHref: "https://www.facebook.com/search/top?q=YAC%20L%27Imbattable%20Fr%C3%A9jus",
   category: "Boutique décoration et jardin",
@@ -108,10 +107,12 @@ export const business = {
 };
 
 /** YAC Affaires — second magasin, même bâtiment, entrée voisine.
- *  Pas encore de coordonnées propres (tél, horaires) : rien n'est affiché
- *  tant qu'elles ne sont pas fournies ; l'accueil YAC sert de contact. */
+ *  Numéro propre ; horaires pas encore fournis : rien n'est affiché
+ *  tant qu'ils ne sont pas renseignés. */
 export const affaires = {
   name: "YAC Affaires",
+  phoneDisplay: "04 94 51 04 33",
+  phoneHref: "tel:+33494510433",
   tagline: "La nouvelle adresse de la bonne affaire",
   proximity: "Même bâtiment, entrée voisine",
   /** Phrase de localisation de la section « Retrouvez-nous » de /affaires. */
@@ -234,9 +235,13 @@ export const socialLinks = [
   },
 ] as const;
 
-export const mapsDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${business.addressQuery}`;
-export const mapsEmbedSrc = `https://www.google.com/maps?q=${business.addressQuery}&output=embed`;
-export const googleReviewsHref = `https://www.google.com/maps/search/?api=1&query=${business.addressQuery}`;
+/** Fiche Google Maps de YAC (L'Imbattable et Affaires : même bâtiment). Seul lien
+ *  de localisation / itinéraire / avis du site. Ne fonctionne pas dans un iframe. */
+export const mapsUrl = "https://maps.app.goo.gl/vYBoSbUf5AimuedM8";
+/** Carte intégrée (iframe) de la même fiche Google « Yac l'Imbattable »
+ *  (id 0x12cea2c7f027a353:0x8c143b1aa302bee8, GPS 43.4501897, 6.7268917). */
+export const mapsEmbedUrl =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.5!2d6.7268917!3d43.4501897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cea2c7f027a353%3A0x8c143b1aa302bee8!2sYac%20l%27Imbattable!5e0!3m2!1sfr!2sfr!4v1759269600000!5m2!1sfr!2sfr";
 
 export const hours = [
   { day: "Lundi", hours: "9h00 – 19h30" },

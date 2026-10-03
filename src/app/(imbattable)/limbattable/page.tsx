@@ -22,7 +22,7 @@ import {
   IconStar,
   IconTag,
 } from "@/components/icons";
-import { business, mapsDirectionsHref } from "@/lib/business";
+import { business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "YAC L'Imbattable — Discounter depuis 1974 à Fréjus",
@@ -93,7 +93,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             <StatTile value="1974" label="Discounter depuis" icon={<IconTag className="h-6 w-6" />} />
             <StatTile
-              value="4,2★"
+              value={`${business.rating.toFixed(1).replace(".", ",")}★`}
               label={`${business.reviewCount.toLocaleString("fr-FR")} avis Google`}
               icon={<IconStar className="h-6 w-6" />}
             />
@@ -183,7 +183,7 @@ export default function Home() {
                 </li>
               </ul>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <CTAButton href={mapsDirectionsHref} variant="secondary" icon={<IconPin className="h-4 w-4" />} external>
+                <CTAButton href={mapsUrl} variant="secondary" icon={<IconPin className="h-4 w-4" />} external>
                   Itinéraire
                 </CTAButton>
                 <Link
@@ -200,7 +200,7 @@ export default function Home() {
               <div className="overflow-hidden rounded-2xl border-2 border-white/20">
                 <iframe
                   title="Carte YAC L'Imbattable Fréjus"
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(business.address)}&output=embed`}
+                  src={mapsEmbedUrl}
                   className="h-72 w-full grayscale sm:h-80"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -226,7 +226,7 @@ export default function Home() {
               <CTAButton href={business.phoneHref} variant="primary" icon={<IconPhone className="h-4 w-4" />}>
                 Appeler maintenant
               </CTAButton>
-              <CTAButton href={mapsDirectionsHref} variant="outline-light" className="!border-brand-black !text-brand-black hover:!bg-brand-black hover:!text-white" icon={<IconPin className="h-4 w-4" />} external>
+              <CTAButton href={mapsUrl} variant="outline-light" className="!border-brand-black !text-brand-black hover:!bg-brand-black hover:!text-white" icon={<IconPin className="h-4 w-4" />} external>
                 Voir l&apos;itinéraire
               </CTAButton>
             </div>

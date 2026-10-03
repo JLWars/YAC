@@ -4,7 +4,7 @@ import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import TestimonialCard from "@/components/TestimonialCard";
 import { IconArrowRight, IconFacebook } from "@/components/icons";
-import { business, googleReviewsHref } from "@/lib/business";
+import { business, mapsUrl } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Avis clients — YAC L'Imbattable",
@@ -94,7 +94,7 @@ export default function AvisPage() {
                 Retrouvez la fiche complète de YAC L&apos;Imbattable sur Google.
               </p>
             </div>
-            <CTAButton href={googleReviewsHref} variant="primary" icon={<IconArrowRight className="h-4 w-4" />} external>
+            <CTAButton href={mapsUrl} variant="primary" icon={<IconArrowRight className="h-4 w-4" />} external>
               Voir sur Google
             </CTAButton>
           </div>

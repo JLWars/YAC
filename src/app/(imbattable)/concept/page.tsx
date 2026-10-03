@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import { IconBox, IconCheck, IconPhone, IconPin, IconTag } from "@/components/icons";
-import { business, mapsDirectionsHref } from "@/lib/business";
+import { business, mapsUrl } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Le Concept — YAC L'Imbattable",
@@ -177,7 +177,7 @@ export default function ConceptPage() {
                 Appeler maintenant
               </CTAButton>
               <CTAButton
-                href={mapsDirectionsHref}
+                href={mapsUrl}
                 variant="outline-light"
                 className="!border-brand-black !text-brand-black hover:!bg-brand-black hover:!text-white"
                 icon={<IconPin className="h-4 w-4" />}

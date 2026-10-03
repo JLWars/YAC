@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { affaires, business } from "@/lib/business";
+import { affaires } from "@/lib/business";
 import { IconBolt, IconPhone, IconPin } from "./icons";
 
 const links = [
@@ -47,8 +47,8 @@ export default function FooterAffaires() {
               </li>
               <li className="flex items-start gap-2">
                 <IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-affaires-yellow" />
-                <a href={business.phoneHref} className="hover:text-white">
-                  Accueil YAC : {business.phoneDisplay}
+                <a href={affaires.phoneHref} className="hover:text-white">
+                  {affaires.phoneDisplay}
                 </a>
               </li>
             </ul>

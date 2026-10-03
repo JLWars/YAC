@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { business, mapsDirectionsHref } from "@/lib/business";
+import { business, mapsUrl } from "@/lib/business";
 import { IconFacebook, IconPhone, IconPin, IconStar } from "./icons";
 
 const links = [
@@ -53,7 +53,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={mapsDirectionsHref}
+                  href={mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 hover:text-white"

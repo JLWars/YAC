@@ -16,7 +16,7 @@ import {
   IconStar,
   IconTag,
 } from "@/components/icons";
-import { affaires, business, mapsDirectionsHref } from "@/lib/business";
+import { affaires, business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: affaires.seo.title,
@@ -144,18 +144,17 @@ export default function AffairesPage() {
 
               <p className="mt-4 flex items-center gap-2 text-white/80">
                 <IconPhone className="h-5 w-5 shrink-0 text-affaires-yellow" />
-                Accueil YAC :{" "}
                 <a
-                  href={business.phoneHref}
+                  href={affaires.phoneHref}
                   className="font-semibold text-white underline decoration-affaires-yellow underline-offset-4 hover:text-affaires-yellow"
                 >
-                  {business.phoneDisplay}
+                  {affaires.phoneDisplay}
                 </a>
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <CTAButton
-                  href={mapsDirectionsHref}
+                  href={mapsUrl}
                   variant="secondary"
                   className="!bg-affaires-yellow !border-black !shadow-[4px_4px_0_0_#000000]"
                   icon={<IconPin className="h-4 w-4" />}
@@ -177,7 +176,7 @@ export default function AffairesPage() {
               <div className="overflow-hidden rounded-2xl border-2 border-white/20">
                 <iframe
                   title="Carte du bâtiment YAC à Fréjus (L'Imbattable & Affaires)"
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(business.address)}&output=embed`}
+                  src={mapsEmbedUrl}
                   className="h-72 w-full grayscale sm:h-80"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -202,7 +201,7 @@ export default function AffairesPage() {
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <CTAButton
-                href={mapsDirectionsHref}
+                href={mapsUrl}
                 variant="primary"
                 className="!bg-affaires-red !border-black !shadow-[4px_4px_0_0_#000000] hover:!bg-affaires-red-dark"
                 icon={<IconPin className="h-4 w-4" />}

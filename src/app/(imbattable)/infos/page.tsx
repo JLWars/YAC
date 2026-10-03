@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import StarRating from "@/components/StarRating";
 import { IconClock, IconFacebook, IconPhone, IconPin, IconStar } from "@/components/icons";
-import { business, hours, mapsDirectionsHref, mapsEmbedSrc } from "@/lib/business";
+import { business, hours, mapsUrl, mapsEmbedUrl } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Infos pratiques — YAC L'Imbattable",
@@ -55,7 +55,7 @@ export default function InfosPage() {
                 <div>
                   <p className="font-semibold text-brand-black">{business.address}</p>
                   <a
-                    href={mapsDirectionsHref}
+                    href={mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-1 inline-block text-sm font-semibold text-brand-red hover:text-brand-red-dark"
@@ -92,7 +92,7 @@ export default function InfosPage() {
                   Appeler
                 </CTAButton>
                 <CTAButton
-                  href={mapsDirectionsHref}
+                  href={mapsUrl}
                   variant="secondary"
                   icon={<IconPin className="h-4 w-4" />}
                   className="flex-1"
@@ -109,7 +109,7 @@ export default function InfosPage() {
             <div className="h-full overflow-hidden rounded-2xl border-2 border-brand-black shadow-[5px_5px_0_0_#141414]">
               <iframe
                 title="Carte YAC L'Imbattable Fréjus"
-                src={mapsEmbedSrc}
+                src={mapsEmbedUrl}
                 className="h-full min-h-[320px] w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -157,7 +157,7 @@ export default function InfosPage() {
             </a>
 
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${business.addressQuery}`}
+              href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 rounded-2xl border-2 border-brand-black bg-white p-6 shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-1"

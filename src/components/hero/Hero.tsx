@@ -3,7 +3,7 @@ import HeroLogoPanel from "@/components/HeroLogoPanel";
 import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import { IconPhone, IconPin } from "@/components/icons";
-import { affaires, business, mapsDirectionsHref, type StoreHeroText } from "@/lib/business";
+import { affaires, business, mapsUrl, type StoreHeroText } from "@/lib/business";
 import HeroBackdrop from "./HeroBackdrop";
 import BurstLines from "./BurstLines";
 import MarkerHighlight from "./MarkerHighlight";
@@ -99,7 +99,7 @@ export default function Hero({ variant }: Props) {
             <Reveal delay={0.32}>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <CTAButton
-                  href={mapsDirectionsHref}
+                  href={mapsUrl}
                   variant="secondary"
                   className={
                     isAffaires
@@ -112,7 +112,7 @@ export default function Hero({ variant }: Props) {
                   Voir l&apos;itinéraire
                 </CTAButton>
                 <CTAButton
-                  href={business.phoneHref}
+                  href={data.phoneHref}
                   variant="primary"
                   className={
                     isAffaires
@@ -121,7 +121,7 @@ export default function Hero({ variant }: Props) {
                   }
                   icon={<IconPhone className="h-4 w-4" />}
                 >
-                  {isAffaires ? "Appeler l'accueil YAC" : "Appeler maintenant"}
+                  Appeler maintenant
                 </CTAButton>
               </div>
             </Reveal>

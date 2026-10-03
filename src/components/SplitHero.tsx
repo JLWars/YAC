@@ -116,9 +116,8 @@ function ImbattableDetails() {
       </ul>
       <p className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-white sm:text-base">
         <IconStar className="h-4 w-4 text-brand-yellow" />
-        4,2 · {business.reviewCount} avis Google
+        {business.rating.toFixed(1).replace(".", ",")} · {business.reviewCount} avis Google
       </p>
-      <p className="mt-1 text-sm text-white/85">{business.phoneDisplay}</p>
     </div>
   );
 }
@@ -354,11 +353,11 @@ export default function SplitHero() {
                   </span>
                 </Link>
                 <a
-                  href={business.phoneHref}
+                  href={affaires.phoneHref}
                   className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border-2 border-white px-6 font-display text-sm uppercase tracking-wide text-white"
                 >
                   <IconPhone className="h-4 w-4" />
-                  Appeler (accueil YAC)
+                  Appeler
                 </a>
               </div>
             </div>
