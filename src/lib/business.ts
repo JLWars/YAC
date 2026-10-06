@@ -16,6 +16,23 @@ export type StoreAbout = { title: string; paragraphs: string[]; closing: string 
  *  automatiquement depuis public/galerie/<magasin>/ (voir npm run photos). */
 export type StoreGalleryContent = { title: string; subtitle: string };
 
+/** Transporteur d'un point relais. `logo` : chemin dans public/ (nom exact,
+ *  casse comprise). `tileColor` : fond de la tuile = couleur des bords du fichier,
+ *  lue au pixel près avec sharp, pour que les marges de l'image se fondent dans la
+ *  tuile (blanc quand les bords sont transparents). `ownMargin` : l'image contient
+ *  déjà ses propres marges, la tuile n'ajoute pas de retrait. */
+export type RelayCarrier = {
+  name: string;
+  logo: string;
+  tileColor: string;
+  ownMargin?: boolean;
+  /** Zoom d'affichage dans la tuile (overflow hidden), pour compenser les marges
+   *  d'une image sans la modifier. Réglé pour que le dessin tienne dans la même
+   *  zone que Pickup/DPD (72 % de la tuile) : rien n'est rogné. */
+  logoScale?: number;
+};
+export type RelayPoints = { title: string; text: string; carriers: RelayCarrier[] };
+
 /** Textes du hero dont certains champs sont facultatifs d'un magasin à l'autre.
  *  `heroEyebrow` absent = aucune étiquette au-dessus du logo. */
 export type StoreHeroText = { heroEyebrow?: string };
@@ -104,6 +121,19 @@ export const business = {
     title: "Le magasin en images",
     subtitle: "Faites le tour des rayons avant de venir !",
   } as StoreGalleryContent,
+
+  relayPoints: {
+    title: "Point relais colis",
+    text: "Retirez et déposez vos colis Pickup, Chronopost et DPD directement au magasin.",
+    carriers: [
+      // pickup.webp 3840×1379 : bords transparents → tuile blanche
+      { name: "Pickup", logo: "/relais/pickup.webp", tileColor: "#ffffff" },
+      // chronopost.jpg 600×600 : bords blancs #ffffff, dessin 494×284 centré (82 % × 47 %)
+      { name: "Chronopost", logo: "/relais/chronopost.jpg", tileColor: "#ffffff", ownMargin: true, logoScale: 1.35 },
+      // dpd.png 4097×1822 : bords transparents → tuile blanche
+      { name: "DPD", logo: "/relais/dpd.png", tileColor: "#ffffff" },
+    ],
+  } as RelayPoints,
 };
 
 /** YAC Affaires — second magasin, même bâtiment, entrée voisine.
@@ -168,6 +198,15 @@ export const affaires = {
     title: "YAC Affaires en images",
     subtitle: "Les trouvailles du moment… elles ne restent jamais longtemps !",
   } as StoreGalleryContent,
+
+  relayPoints: {
+    title: "Point relais Vinted Go",
+    text: "Déposez et retirez vos colis Vinted directement au magasin.",
+    carriers: [
+      // vinted.webp 1200×626 : bords #004756, dessin 685×178 (57 % × 28 %)
+      { name: "Vinted Go", logo: "/relais/vinted.webp", tileColor: "#004756", ownMargin: true, logoScale: 1.25 },
+    ],
+  } as RelayPoints,
 
   // --- Contenu de la page /affaires ---
   seo: {

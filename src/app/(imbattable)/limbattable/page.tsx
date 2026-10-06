@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RelayPoints from "@/components/RelayPoints";
 import Reveal from "@/components/Reveal";
 import Hero from "@/components/hero/Hero";
 import FeatureStrip from "@/components/FeatureStrip";
@@ -182,6 +183,7 @@ export default function Home() {
                   </a>
                 </li>
               </ul>
+              <RelayPoints variant="imbattable" className="mt-8" />
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <CTAButton href={mapsUrl} variant="secondary" icon={<IconPin className="h-4 w-4" />} external>
                   Itinéraire

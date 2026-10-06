@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
+import RelayPoints from "@/components/RelayPoints";
 import StarRating from "@/components/StarRating";
 import { IconClock, IconFacebook, IconPhone, IconPin, IconStar } from "@/components/icons";
 import { business, hours, mapsUrl, mapsEmbedUrl } from "@/lib/business";
@@ -86,6 +87,8 @@ export default function InfosPage() {
                   <p className="mt-1 text-sm text-brand-black/60">Voir le détail des horaires ci-dessous</p>
                 </div>
               </div>
+
+              <RelayPoints variant="imbattable" tone="light" className="border-t border-brand-black/10 pt-6" />
 
               <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row">
                 <CTAButton href={business.phoneHref} variant="primary" icon={<IconPhone className="h-4 w-4" />} className="flex-1">

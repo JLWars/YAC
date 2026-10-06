@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { business, mapsUrl } from "@/lib/business";
-import { IconFacebook, IconPhone, IconPin, IconStar } from "./icons";
+import { IconBox, IconFacebook, IconPhone, IconPin, IconStar } from "./icons";
 
 const links = [
   { href: "/", label: "Accueil YAC" },
@@ -61,6 +61,10 @@ export default function Footer() {
                   <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
                   {business.address}
                 </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <IconBox className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
+                Point relais {business.relayPoints.carriers.map((c) => c.name).join(" · ")}
               </li>
             </ul>
           </div>

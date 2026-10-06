@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RelayPoints from "@/components/RelayPoints";
 import Reveal from "@/components/Reveal";
 import Hero from "@/components/hero/Hero";
 import FeatureStrip from "@/components/FeatureStrip";
@@ -151,6 +152,8 @@ export default function AffairesPage() {
                   {affaires.phoneDisplay}
                 </a>
               </p>
+
+              <RelayPoints variant="affaires" className="mt-8" />
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <CTAButton

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { affaires } from "@/lib/business";
-import { IconBolt, IconPhone, IconPin } from "./icons";
+import { IconBolt, IconBox, IconPhone, IconPin } from "./icons";
 
 const links = [
   { href: "/", label: "Accueil YAC" },
@@ -50,6 +50,10 @@ export default function FooterAffaires() {
                 <a href={affaires.phoneHref} className="hover:text-white">
                   {affaires.phoneDisplay}
                 </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <IconBox className="mt-0.5 h-4 w-4 shrink-0 text-affaires-yellow" />
+                Point relais {affaires.relayPoints.carriers.map((c) => c.name).join(" · ")}
               </li>
             </ul>
           </div>
