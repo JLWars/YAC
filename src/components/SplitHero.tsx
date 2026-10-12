@@ -28,31 +28,47 @@ type StarLogo = { src: string; width: number; height: number; alt: string };
 
 type LogoProps = { logo: StarLogo; crop: LogoCrop; scale?: number; compact: boolean };
 
+/** Ratio largeur / hauteur de la zone réellement dessinée d'un PNG (crop mesuré dans business.ts). */
+function drawnRatio(logo: StarLogo, crop: LogoCrop) {
+  return (logo.width * (100 - crop.left - crop.right)) / (logo.height * (100 - crop.top - crop.bottom));
+}
+
+/** Ratio du cadre commun aux deux cartes : celui du logo affiché le plus large
+ *  (× scale, ici L'iMBATTABLE ≈ 1,92). Ce logo occupe toute la largeur du cadre,
+ *  l'autre s'y centre : aucune marge perdue sur les côtés. */
+const FRAME_RATIO = Math.max(
+  drawnRatio(business.logoStar, business.logoStarCrop) * business.logoStarScale,
+  drawnRatio(affaires.logoStar, affaires.logoStarCrop) * affaires.logoStarScale,
+);
+
 /**
  * Logo « étoile » détouré, seul et en grand : pas de cadre, fond ni ombre.
- * Les deux cartes ont un cadre identique ; dedans, une boîte au ratio de la zone
- * réellement dessinée (crop mesuré dans business.ts) prend toute la hauteur
- * (× scale) et l'image déborde de cette boîte uniquement par son vide transparent
- * (overflow visible : rien n'est coupé).
+ * Les deux cartes ont un cadre identique (pleine largeur, ratio FRAME_RATIO) ;
+ * dedans, une boîte au ratio de la zone réellement dessinée prend toute la
+ * hauteur (× scale) et l'image déborde de cette boîte uniquement par son vide
+ * transparent (overflow visible : rien n'est coupé).
+ * Desktop : max-h = 100dvh − 20rem pour que cadre + accroche tiennent toujours
+ * entre le pt et le pb du panneau (bouton jamais sur le bandeau rayé), 22,25rem
+ * au plus sur grand écran.
  */
 function StoreLogo({ logo, crop, scale = 1, compact }: LogoProps) {
   const cw = 100 - crop.left - crop.right;
   const ch = 100 - crop.top - crop.bottom;
-  const drawnRatio = (logo.width * cw) / (logo.height * ch);
   return (
     <div
-      className={`flex aspect-[21/10] w-[88%] items-center justify-center ${
-        compact ? "max-h-[26dvh] max-w-sm" : "max-h-[min(40dvh,calc(100dvh-24rem))] max-w-[36rem]"
+      className={`flex w-full items-center justify-center ${
+        compact ? "max-h-[34dvh] max-w-[31rem]" : "max-h-[min(52dvh,calc(100dvh-20rem),22.25rem)]"
       }`}
+      style={{ aspectRatio: FRAME_RATIO }}
     >
-      <div className="relative" style={{ height: `${scale * 100}%`, aspectRatio: drawnRatio }}>
+      <div className="relative" style={{ height: `${scale * 100}%`, aspectRatio: drawnRatio(logo, crop) }}>
         <Image
           src={logo.src}
           alt={logo.alt}
           width={logo.width}
           height={logo.height}
           priority
-          sizes={compact ? "85vw" : "(min-width: 1024px) 40vw, 45vw"}
+          sizes={compact ? "100vw" : "65vw"}
           className="absolute max-w-none"
           style={{
             width: `${(100 * 100) / cw}%`,
@@ -85,7 +101,10 @@ function StoreBase({ tagline, children, ...logo }: BaseProps) {
   );
 }
 
-const taglineClass = "mt-2 font-display text-base uppercase tracking-wide sm:text-lg";
+/** Accroche à l'échelle du logo : ~20 px sur mobile (5,2vw, tient sur une ligne
+ *  jusqu'à 320 px), 24 px en desktop. */
+const taglineClass =
+  "mt-2.5 font-display text-[length:min(5.2vw,1.3rem)] uppercase tracking-wide md:text-2xl";
 
 function ImbattableBase({ compact = false, children }: { compact?: boolean; children?: ReactNode }) {
   return (
@@ -236,9 +255,9 @@ export default function SplitHero() {
           className="relative min-w-0 cursor-pointer overflow-hidden bg-brand-red outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-brand-yellow"
         >
           <div className="bg-halftone pointer-events-none absolute inset-0 text-black/10" />
-          {/* pb = bandeau rayé (1rem) + marge (1,5rem) + place réservée aux détails
-              les plus longs (Imbattable : chips, avis, tél., bouton ≈ 14,5rem) */}
-          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[17rem] pt-6 lg:px-10">
+          {/* pb = bandeau rayé (1rem) + marge (≥ 1,25rem) + place réservée aux détails
+              les plus longs (Imbattable : chips, avis, bouton ≈ 12,75rem) */}
+          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[15rem] pt-6 lg:px-7">
             <ImbattableBase>
               <div className={detailsClass(active === "imbattable")} aria-hidden={active !== "imbattable"}>
                 <div>
@@ -272,9 +291,9 @@ export default function SplitHero() {
           className="relative min-w-0 cursor-pointer overflow-hidden bg-affaires-anthracite outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-affaires-yellow"
         >
           <div className="bg-striated pointer-events-none absolute inset-0" />
-          {/* pb = bandeau rayé (1rem) + marge (1,5rem) + place réservée aux détails
-              les plus longs (Imbattable : chips, avis, tél., bouton ≈ 14,5rem) */}
-          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[17rem] pt-6 lg:px-10">
+          {/* pb = bandeau rayé (1rem) + marge (≥ 1,25rem) + place réservée aux détails
+              les plus longs (Imbattable : chips, avis, bouton ≈ 12,75rem) */}
+          <div className="relative flex h-full flex-col items-center justify-center px-6 pb-[15rem] pt-6 lg:px-7">
             <AffairesBase>
               <div className={detailsClass(active === "affaires")} aria-hidden={active !== "affaires"}>
                 <div>
@@ -299,7 +318,7 @@ export default function SplitHero() {
         >
           <div className="bg-halftone pointer-events-none absolute inset-0 text-black/10" />
           {mobileOpen === "imbattable" ? (
-            <div className="relative flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-5 py-6">
+            <div className="relative flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-4 py-6">
               <ImbattableBase compact />
               <ImbattableDetails />
               <div className="flex w-full max-w-xs flex-col gap-3">
@@ -342,7 +361,7 @@ export default function SplitHero() {
         >
           <div className="bg-striated pointer-events-none absolute inset-0" />
           {mobileOpen === "affaires" ? (
-            <div className="relative flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-5 py-6">
+            <div className="relative flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-4 py-6">
               <AffairesBase compact />
               <AffairesDetails />
               <div className="flex w-full max-w-xs flex-col gap-3">

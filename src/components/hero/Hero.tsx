@@ -61,10 +61,12 @@ export default function Hero({ variant }: Props) {
                 variant={variant}
                 className="absolute -left-6 -top-4 w-9 sm:w-14"
               />
+              {/* Éclairs de droite écartés de la dernière lettre (~17 px nets) : le dessin
+                  d'AFFAIRES va jusqu'au bord du PNG, celui de L'iMBATTABLE s'arrête 2 % avant. */}
               <BurstLines
                 variant={variant}
                 flip
-                className="absolute -right-8 top-[42%] w-9 sm:w-16"
+                className={`absolute top-[42%] w-9 sm:w-16 ${isAffaires ? "-right-16" : "-right-14"}`}
               />
               <HeroLogoPanel {...data.heroLogo} delay={0.08} />
             </div>

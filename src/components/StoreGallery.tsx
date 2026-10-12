@@ -49,7 +49,9 @@ export default function StoreGallery({ variant }: { variant: Variant }) {
           <h2 className={`font-display text-3xl uppercase leading-tight tracking-tight sm:text-4xl lg:text-5xl ${s.title}`}>
             {data.gallery.title}
           </h2>
-          <p className={`mt-2 font-hand text-2xl leading-snug sm:text-3xl ${s.subtitle}`}>{data.gallery.subtitle}</p>
+          {data.gallery.subtitle ? (
+            <p className={`mt-2 font-hand text-2xl leading-snug sm:text-3xl ${s.subtitle}`}>{data.gallery.subtitle}</p>
+          ) : null}
         </Reveal>
 
         <StoreGalleryCarousel variant={variant} photos={photos} storeName={data.name} />

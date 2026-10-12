@@ -108,7 +108,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <h2 className="max-w-2xl font-display text-3xl uppercase leading-tight tracking-tight text-brand-black sm:text-4xl lg:text-5xl">
-            Un peu de tout, <span className="text-brand-red">à prix imbattables</span>
+            De tout, <span className="text-brand-red">à prix imbattables</span>
           </h2>
         </Reveal>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

@@ -13,8 +13,9 @@ export type HeroFeature = {
 export type StoreAbout = { title: string; paragraphs: string[]; closing: string };
 
 /** En-tête de la galerie photos. Les photos elles-mêmes sont listées
- *  automatiquement depuis public/galerie/<magasin>/ (voir npm run photos). */
-export type StoreGalleryContent = { title: string; subtitle: string };
+ *  automatiquement depuis public/galerie/<magasin>/ (voir npm run photos).
+ *  `subtitle` absent = titre seul, sans ligne vide dessous. */
+export type StoreGalleryContent = { title: string; subtitle?: string };
 
 /** Transporteur d'un point relais. `logo` : chemin dans public/ (nom exact,
  *  casse comprise). `tileColor` : fond de la tuile = couleur des bords du fichier,
@@ -114,12 +115,11 @@ export const business = {
       "Côté ouverture, le chemin parcouru est tout aussi remarquable : du premier samedi de chaque mois, pendant huit jours, à une ouverture 7j/7 depuis 2018. Une accessibilité totale, pour une offre toujours plus large, disponible chaque jour de la semaine.",
     ],
     closing:
-      "YAC L'Imbattable : plus de 50 ans d'expertise, une seule promesse : l'imbattable, tous les jours.",
+      "YAC L'Imbattable : plus de 50 ans d'expertise. Une seule promesse : l'imbattable, tous les jours.",
   } as StoreAbout,
 
   gallery: {
     title: "Le magasin en images",
-    subtitle: "Faites le tour des rayons avant de venir !",
   } as StoreGalleryContent,
 
   relayPoints: {
@@ -167,7 +167,7 @@ export const affaires = {
   // --- Hero redesign (même structure que L'Imbattable, identité Affaires) ---
   heroTagline: "Pièces uniques, prix imbattables",
   heroDescription:
-    "Pièces uniques et petites séries issues de palettes de produits mélangés, à prix discount : des arrivages renouvelés en permanence, dans le même bâtiment que L'Imbattable, entrée voisine.",
+    "Pièces uniques, petites séries issues de palettes de produits mélangés, prix discount : des arrivages renouvelés en permanence, dans le même bâtiment que L'Imbattable, entrée voisine.",
   socialFollow: {
     title: "Suivez-nous sur nos réseaux",
     subtitle: "pour ne rien manquer de nos nouveaux arrivages !",
