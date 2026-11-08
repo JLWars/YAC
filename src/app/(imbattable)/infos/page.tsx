@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import RelayPoints from "@/components/RelayPoints";
-import StarRating from "@/components/StarRating";
 import JsonLd from "@/components/JsonLd";
 import { IconChevronDown, IconClock, IconFacebook, IconPhone, IconPin, IconStar } from "@/components/icons";
-import { business, hours, infosFaq, mapsUrl, mapsEmbedUrl } from "@/lib/business";
+import { business, hours, infosFaq, mapsUrl, mapsEmbedUrl, upperFirst } from "@/lib/business";
 import { infosFaqJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -50,7 +49,10 @@ export default function InfosPage() {
                 <h2 className="font-display text-2xl uppercase tracking-tight text-brand-black sm:text-3xl">
                   Coordonnées
                 </h2>
-                <StarRating rating={business.rating} reviewCount={business.reviewCount} size="sm" />
+                <p className="flex items-center gap-1.5 text-xs font-semibold text-brand-black">
+                  <IconStar className="h-3.5 w-3.5 text-brand-yellow" />
+                  {upperFirst(business.reviews.label)}
+                </p>
               </div>
 
               <div className="flex items-start gap-3">
@@ -175,7 +177,7 @@ export default function InfosPage() {
               <div>
                 <p className="font-display text-lg tracking-tight text-brand-black">Google</p>
                 <p className="text-sm text-brand-black/60">
-                  {business.rating.toFixed(1)}★ · {business.reviewCount.toLocaleString("fr-FR")} avis
+                  {upperFirst(business.reviews.count)}
                 </p>
               </div>
             </a>

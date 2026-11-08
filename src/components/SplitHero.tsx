@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { business, affaires, type LogoCrop } from "@/lib/business";
+import { business, affaires, upperFirst, type LogoCrop } from "@/lib/business";
 import { IconArrowRight, IconChevronDown, IconPhone, IconStar } from "./icons";
 
 type StoreId = "imbattable" | "affaires";
@@ -135,7 +135,7 @@ function ImbattableDetails() {
       </ul>
       <p className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-white sm:text-base">
         <IconStar className="h-4 w-4 text-brand-yellow" />
-        {business.rating.toFixed(1).replace(".", ",")} · {business.reviewCount} avis Google
+        {upperFirst(business.reviews.label)}
       </p>
     </div>
   );

@@ -1,9 +1,8 @@
 import Reveal from "@/components/Reveal";
 import HeroLogoPanel from "@/components/HeroLogoPanel";
-import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
-import { IconPhone, IconPin } from "@/components/icons";
-import { affaires, business, mapsUrl, type StoreHeroText } from "@/lib/business";
+import { IconPhone, IconPin, IconStar } from "@/components/icons";
+import { affaires, business, mapsUrl, upperFirst, type StoreHeroText } from "@/lib/business";
 import HeroBackdrop from "./HeroBackdrop";
 import BurstLines from "./BurstLines";
 import MarkerHighlight from "./MarkerHighlight";
@@ -87,14 +86,10 @@ export default function Hero({ variant }: Props) {
 
             {isAffaires ? null : (
               <Reveal delay={0.26}>
-                <div className="mt-5">
-                  <StarRating
-                    rating={business.rating}
-                    reviewCount={business.reviewCount}
-                    size="lg"
-                    dark
-                  />
-                </div>
+                <p className="mt-5 inline-flex items-center gap-2 text-lg font-semibold text-white">
+                  <IconStar className="h-6 w-6 text-brand-yellow" />
+                  {upperFirst(business.reviews.label)}
+                </p>
               </Reveal>
             )}
 

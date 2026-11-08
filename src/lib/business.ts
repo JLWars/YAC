@@ -71,14 +71,30 @@ export const postalAddress = {
   country: "FR",
 };
 
+/** Avis Google de L'Imbattable : un palier qui ne se périme pas, plutôt qu'une note
+ *  et un nombre exacts qui changent chaque semaine. Dernier relevé (début octobre
+ *  2026) : juste sous ce palier, à vérifier sur la fiche avant mise en ligne. À
+ *  relever quand la fiche dépasse le palier suivant. */
+const REVIEWS_FLOOR = 900;
+
+/** Majuscule initiale, pour placer un libellé en début de phrase. */
+export function upperFirst(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 export const business = {
   name: "YAC L'Imbattable",
   slogan: "Discounter depuis 1974",
   phoneDisplay: "04 94 53 37 01",
   phoneHref: "tel:+33494533701",
   address: `${postalAddress.street}, ${postalAddress.postalCode} ${postalAddress.city}`,
-  rating: 4.3,
-  reviewCount: 897,
+  reviews: {
+    floor: REVIEWS_FLOOR,
+    /** « plus de 900 avis » */
+    count: `plus de ${REVIEWS_FLOOR} avis`,
+    /** « plus de 900 avis Google » */
+    label: `plus de ${REVIEWS_FLOOR} avis Google`,
+  },
   facebookFollowers: "20 000",
   facebookHref: "https://www.facebook.com/search/top?q=YAC%20L%27Imbattable%20Fr%C3%A9jus",
   category: "Boutique décoration et jardin",
@@ -223,7 +239,7 @@ export const affaires = {
   seo: {
     title: "YAC Affaires — Pièces uniques & petites séries à Fréjus",
     description:
-      "YAC Affaires à Fréjus : pièces uniques et petites séries à prix discount, arrivages renouvelés en permanence. Même bâtiment que YAC L'Imbattable, entrée voisine.",
+      "YAC Affaires à Fréjus : pièces uniques et petites séries à prix discount, arrivages permanents. Même bâtiment que YAC L'Imbattable, entrée voisine.",
   },
   newStat: { value: "2026", label: "Ouverture le 1er juillet" },
   /** Date d'ouverture (about + newStat : 1er juillet 2026), pour les données structurées. */
@@ -300,6 +316,11 @@ export const mapsUrl = "https://maps.app.goo.gl/vYBoSbUf5AimuedM8";
  *  (id 0x12cea2c7f027a353:0x8c143b1aa302bee8, GPS 43.4501897, 6.7268917). */
 export const mapsEmbedUrl =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.5!2d6.7268917!3d43.4501897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cea2c7f027a353%3A0x8c143b1aa302bee8!2sYac%20l%27Imbattable!5e0!3m2!1sfr!2sfr!4v1759269600000!5m2!1sfr!2sfr";
+/** Boutons d'avis : la fiche Google Maps (avis à lire, et « Écrire un avis » depuis la
+ *  fiche). `write` est à remplacer par le lien direct vers le formulaire d'avis
+ *  (fiche Google Business → « Demander des avis ») quand il sera fourni. */
+export const reviewLinks = { read: mapsUrl, write: mapsUrl };
+
 /** Coordonnées GPS de cette fiche Google (les mêmes que dans mapsEmbedUrl). */
 export const storeGeo = { latitude: 43.4501897, longitude: 6.7268917 };
 

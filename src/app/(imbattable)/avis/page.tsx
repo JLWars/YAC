@@ -1,50 +1,18 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
-import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
-import TestimonialCard from "@/components/TestimonialCard";
-import { IconArrowRight, IconFacebook } from "@/components/icons";
-import { business, mapsUrl } from "@/lib/business";
+import { IconArrowRight, IconFacebook, IconStar } from "@/components/icons";
+import { business, reviewLinks, upperFirst } from "@/lib/business";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   path: "/avis",
   title: "Avis clients — YAC L'Imbattable",
-  description: `YAC L'Imbattable est noté ${business.rating}/5 sur ${business.reviewCount} avis Google. Découvrez ce que pensent nos clients de Fréjus.`,
+  description: `${business.name} : ${business.reviews.label}. Découvrez ce que pensent nos clients de Fréjus.`,
 });
 
-// Témoignages placeholders — à remplacer par les avis Google réels du client.
-const testimonials = [
-  {
-    name: "Sophie M.",
-    rating: 5,
-    date: "Il y a 2 semaines",
-    quote:
-      "Des prix vraiment imbattables, on trouve toujours une bonne affaire. Le choix change souvent, ça vaut le coup d'y retourner régulièrement.",
-  },
-  {
-    name: "Karim B.",
-    rating: 5,
-    date: "Il y a 1 mois",
-    quote:
-      "Immense magasin, du sol au plafond ! Idéal pour la déco et le jardin sans se ruiner. Le personnel est sympa et disponible.",
-  },
-  {
-    name: "Nathalie R.",
-    rating: 4,
-    date: "Il y a 3 mois",
-    quote:
-      "Ouvert 7j/7, ça dépanne bien. Il faut prendre le temps de fouiller mais on repart toujours avec quelque chose.",
-  },
-  {
-    name: "Julien P.",
-    rating: 5,
-    date: "Il y a 4 mois",
-    quote:
-      "Client depuis des années, jamais déçu. Les arrivages sont réguliers et il y a vraiment de tout à des prix cassés.",
-  },
-];
-
+/** Pas de témoignages recopiés sur le site : les avis se lisent et se laissent sur la
+ *  fiche Google. */
 export default function AvisPage() {
   return (
     <>
@@ -63,47 +31,44 @@ export default function AvisPage() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <div className="mx-auto mt-10 flex max-w-md flex-col items-center gap-3 rounded-2xl border-2 border-white/20 bg-white/5 px-6 py-8 backdrop-blur-sm">
-              <span className="font-display text-6xl leading-none text-brand-yellow sm:text-7xl">
-                {business.rating.toFixed(1)}
-              </span>
-              <StarRating rating={business.rating} size="lg" dark hideValue />
-              <p className="text-sm text-white/70">
-                Basé sur {business.reviewCount.toLocaleString("fr-FR")} avis Google
+            <div className="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-6 rounded-2xl border-2 border-white/20 bg-white/5 px-6 py-8 backdrop-blur-sm sm:px-10">
+              <p className="flex items-center gap-2 font-display text-2xl uppercase tracking-wide text-brand-yellow sm:text-3xl">
+                <IconStar className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" />
+                {upperFirst(business.reviews.label)}
               </p>
+              <p className="max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
+                Les avis de nos clients sont sur notre fiche Google : lisez-les, et après votre visite,
+                laissez le vôtre !
+              </p>
+              <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
+                <CTAButton
+                  href={reviewLinks.read}
+                  variant="secondary"
+                  icon={<IconStar className="h-5 w-5" />}
+                  className="!min-h-[60px] w-full !px-9 !text-lg sm:w-auto sm:!text-xl"
+                  external
+                >
+                  Lire nos avis sur Google
+                </CTAButton>
+                <CTAButton
+                  href={reviewLinks.write}
+                  variant="outline-light"
+                  icon={<IconArrowRight className="h-4 w-4" />}
+                  className="w-full sm:w-auto"
+                  external
+                >
+                  Laisser un avis
+                </CTAButton>
+              </div>
             </div>
           </Reveal>
         </div>
         <div className="bg-hazard-stripes h-5 w-full sm:h-6" />
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="grid gap-5 sm:grid-cols-2">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.07}>
-              <TestimonialCard {...t} />
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.15}>
-          <div className="mt-12 flex flex-col items-center justify-center gap-5 rounded-2xl border-2 border-brand-black bg-brand-cream p-8 text-center shadow-[5px_5px_0_0_#141414] sm:flex-row sm:justify-between sm:text-left">
-            <div>
-              <h2 className="font-display text-2xl uppercase tracking-tight text-brand-black sm:text-3xl">
-                Envie de lire tous les avis ?
-              </h2>
-              <p className="mt-2 text-sm text-brand-black/70 sm:text-base">
-                Retrouvez la fiche complète de YAC L&apos;Imbattable sur Google.
-              </p>
-            </div>
-            <CTAButton href={mapsUrl} variant="primary" icon={<IconArrowRight className="h-4 w-4" />} external>
-              Voir sur Google
-            </CTAButton>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-brand-black/60">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="flex items-center justify-center gap-2 text-sm text-brand-black/60">
             <IconFacebook className="h-4 w-4 text-brand-red" />
             Rejoignez aussi nos {business.facebookFollowers} abonnés sur Facebook
           </div>

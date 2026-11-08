@@ -5,10 +5,8 @@ import Reveal from "@/components/Reveal";
 import Hero from "@/components/hero/Hero";
 import FeatureStrip from "@/components/FeatureStrip";
 import BottomBanner from "@/components/BottomBanner";
-import StarRating from "@/components/StarRating";
 import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
-import TestimonialCard from "@/components/TestimonialCard";
 import StoreGallery from "@/components/StoreGallery";
 import StoreAbout from "@/components/StoreAbout";
 import {
@@ -23,7 +21,7 @@ import {
   IconStar,
   IconTag,
 } from "@/components/icons";
-import { business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
+import { business, mapsEmbedUrl, mapsUrl, reviewLinks, upperFirst } from "@/lib/business";
 import JsonLd from "@/components/JsonLd";
 import { imbattableJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -57,30 +55,6 @@ const categories = [
   },
 ];
 
-const previewTestimonials = [
-  {
-    name: "Sophie M.",
-    rating: 5,
-    date: "Il y a 2 semaines",
-    quote:
-      "Des prix vraiment imbattables, on trouve toujours une bonne affaire. Le choix change souvent, ça vaut le coup d'y retourner régulièrement.",
-  },
-  {
-    name: "Karim B.",
-    rating: 5,
-    date: "Il y a 1 mois",
-    quote:
-      "Immense magasin, du sol au plafond ! Idéal pour la déco et le jardin sans se ruiner. Le personnel est sympa et disponible.",
-  },
-  {
-    name: "Nathalie R.",
-    rating: 4,
-    date: "Il y a 3 mois",
-    quote:
-      "Ouvert 7j/7, ça dépanne bien. Il faut prendre le temps de fouiller mais on repart toujours avec quelque chose.",
-  },
-];
-
 export default function Home() {
   return (
     <>
@@ -98,8 +72,8 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             <StatTile value="1974" label="Discounter depuis" icon={<IconTag className="h-6 w-6" />} />
             <StatTile
-              value={`${business.rating.toFixed(1).replace(".", ",")}★`}
-              label={`${business.reviewCount.toLocaleString("fr-FR")} avis Google`}
+              value={`+${business.reviews.floor}`}
+              label="Avis Google"
               icon={<IconStar className="h-6 w-6" />}
             />
             <StatTile value="20k" label="Abonnés Facebook" icon={<IconFacebook className="h-6 w-6" />} />
@@ -130,36 +104,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AVIS PREVIEW */}
+      {/* AVIS GOOGLE (aucun témoignage recopié : lien vers la fiche Google) */}
       <section className="bg-brand-cream py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div className="flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-brand-black bg-white p-8 text-center shadow-[5px_5px_0_0_#141414] sm:flex-row sm:justify-between sm:text-left">
               <div>
                 <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-brand-black sm:text-4xl">
-                  Ils ont trouvé leur bonne affaire
+                  {upperFirst(business.reviews.count)} <span className="text-brand-red">sur Google</span>
                 </h2>
-                <div className="mt-3">
-                  <StarRating rating={business.rating} reviewCount={business.reviewCount} size="md" />
-                </div>
+                <p className="mt-2 text-sm text-brand-black/70 sm:text-base">
+                  Ils ont trouvé leur bonne affaire : lisez leurs avis sur notre fiche Google.
+                </p>
               </div>
-              <Link
-                href="/avis"
-                className="inline-flex min-h-[44px] items-center gap-2 font-display text-sm uppercase tracking-wide text-brand-red hover:text-brand-red-dark"
+              <CTAButton
+                href={reviewLinks.read}
+                variant="primary"
+                icon={<IconArrowRight className="h-4 w-4" />}
+                className="shrink-0"
+                external
               >
-                Voir tous les avis
-                <IconArrowRight className="h-4 w-4" />
-              </Link>
+                Lire nos avis
+              </CTAButton>
             </div>
           </Reveal>
-
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {previewTestimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.08}>
-                <TestimonialCard {...t} />
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

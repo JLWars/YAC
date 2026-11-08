@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { business, mapsUrl } from "@/lib/business";
+import { business, mapsUrl, upperFirst } from "@/lib/business";
 import { IconBox, IconFacebook, IconPhone, IconPin, IconStar } from "./icons";
 
 const links = [
@@ -73,7 +73,7 @@ export default function Footer() {
             <h3 className="font-display text-sm uppercase tracking-wide text-brand-yellow">Suivez-nous</h3>
             <div className="mt-4 flex items-center gap-2 text-sm text-white/80">
               <IconStar className="h-4 w-4 text-brand-yellow" />
-              {business.rating.toFixed(1)} · {business.reviewCount.toLocaleString("fr-FR")} avis Google
+              {upperFirst(business.reviews.label)}
             </div>
             <a
               href={business.facebookHref}

@@ -17,7 +17,7 @@ import {
   IconStar,
   IconTag,
 } from "@/components/icons";
-import { affaires, business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
+import { affaires, business, mapsEmbedUrl, mapsUrl, upperFirst } from "@/lib/business";
 import JsonLd from "@/components/JsonLd";
 import { affairesJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -105,8 +105,7 @@ export default function AffairesPage() {
                 </h2>
                 <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-white/80">
                   <IconStar className="h-4 w-4 text-affaires-yellow" />
-                  {business.rating.toFixed(1).replace(".", ",")} · {business.reviewCount} avis Google pour
-                  L&apos;Imbattable, juste à côté
+                  {upperFirst(business.reviews.label)} pour L&apos;Imbattable, juste à côté
                 </p>
               </div>
               <Link
