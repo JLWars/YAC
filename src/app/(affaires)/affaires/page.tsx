@@ -18,11 +18,14 @@ import {
   IconTag,
 } from "@/components/icons";
 import { affaires, business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
+import JsonLd from "@/components/JsonLd";
+import { affairesJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/affaires",
   title: affaires.seo.title,
   description: affaires.seo.description,
-};
+});
 
 const offerIcons = { tag: IconTag, box: IconBox, star: IconStar };
 
@@ -49,6 +52,7 @@ const esprit = [
 export default function AffairesPage() {
   return (
     <>
+      <JsonLd data={affairesJsonLd} />
       {/* HERO */}
       <Hero variant="affaires" />
       <FeatureStrip features={affaires.features} />

@@ -5,11 +5,13 @@ import CTAButton from "@/components/CTAButton";
 import TestimonialCard from "@/components/TestimonialCard";
 import { IconArrowRight, IconFacebook } from "@/components/icons";
 import { business, mapsUrl } from "@/lib/business";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/avis",
   title: "Avis clients — YAC L'Imbattable",
   description: `YAC L'Imbattable est noté ${business.rating}/5 sur ${business.reviewCount} avis Google. Découvrez ce que pensent nos clients de Fréjus.`,
-};
+});
 
 // Témoignages placeholders — à remplacer par les avis Google réels du client.
 const testimonials = [

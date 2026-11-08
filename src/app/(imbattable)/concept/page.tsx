@@ -3,12 +3,14 @@ import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import { IconBox, IconCheck, IconPhone, IconPin, IconTag } from "@/components/icons";
 import { business, mapsUrl } from "@/lib/business";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/concept",
   title: "Le Concept — YAC L'Imbattable",
   description:
     "Depuis 1974, YAC L'Imbattable déstocke saisies, liquidations, fins de séries et changements de collection pour proposer des prix imbattables à Fréjus.",
-};
+});
 
 const steps = [
   {

@@ -42,22 +42,33 @@ export type StoreHeroText = { heroEyebrow?: string };
  *  et de sa hauteur (top/bottom). */
 export type LogoCrop = { top: number; right: number; bottom: number; left: number };
 
-/** PNG détourés (fond transparent) utilisés comme logo principal de chaque magasin :
- *  hero, carte de la home et header partagent le même fichier. */
+/** Logos détourés (fond transparent) utilisés comme logo principal de chaque magasin :
+ *  hero, carte de la home et header partagent le même fichier. WebP générés par
+ *  scripts/seo-images.mjs depuis les PNG d'origine (photos-source/logos/), même
+ *  canevas 1448×1086 et alpha sans perte : les crops mesurés ci-dessous restent valables. */
 const imbattableLogo = {
-  src: "/logo-imbattable-hero.png",
+  src: "/logo-imbattable-hero.webp",
   width: 1448,
   height: 1086,
   alt: "Logo YAC L'Imbattable",
 };
 
-/** Logo étoile au « YAC » jaune. Le PNG a ~10-11 % (de sa largeur) de vide
+/** Logo étoile au « YAC » jaune. L'image a ~10-11 % (de sa largeur) de vide
  *  transparent en haut et en bas. */
 const affairesLogo = {
-  src: "/logo-affaires-star.png",
+  src: "/logo-affaires-star.webp",
   width: 1448,
   height: 1086,
   alt: "Logo YAC Affaires",
+};
+
+/** Adresse commune aux deux magasins (même bâtiment), aussi utilisée telle quelle
+ *  dans les données structurées. */
+export const postalAddress = {
+  street: "1683 Rue des Combattants d'Afrique du Nord",
+  postalCode: "83600",
+  city: "Fréjus",
+  country: "FR",
 };
 
 export const business = {
@@ -65,7 +76,7 @@ export const business = {
   slogan: "Discounter depuis 1974",
   phoneDisplay: "04 94 53 37 01",
   phoneHref: "tel:+33494533701",
-  address: "1683 Rue des Combattants d'Afrique du Nord, 83600 Fréjus",
+  address: `${postalAddress.street}, ${postalAddress.postalCode} ${postalAddress.city}`,
   rating: 4.3,
   reviewCount: 897,
   facebookFollowers: "20 000",
@@ -100,7 +111,7 @@ export const business = {
   bottomBanner: { text: "L'Imbattable, bien plus qu'un magasin !" },
   /** Logo PNG détouré, affiché seul et en grand sur la carte de la home (même PNG que le hero). */
   logoStar: imbattableLogo,
-  /** Zone dessinée de logo-imbattable-hero.png (1448×1086), mesurée avec sharp en
+  /** Zone dessinée de logo-imbattable-hero (1448×1086), mesurée avec sharp en
    *  lecture seule : pixels d'alpha > 2 (au-dessous, voile invisible de détourage).
    *  Boîte dessinée x 37→1418, y 195→864, soit 1382×670 px (ratio 2,06). */
   logoStarCrop: { top: 17.96, right: 2.0, bottom: 20.35, left: 2.56 } as LogoCrop,
@@ -151,7 +162,7 @@ export const affaires = {
   locationShort: "Dans le même bâtiment que YAC L'Imbattable, entrée voisine",
   /** Logo « étoile » PNG détouré, affiché seul et en grand sur la carte de la home. */
   logoStar: affairesLogo,
-  /** Zone dessinée de logo-affaires-star.png (1448×1086), mesurée avec sharp en
+  /** Zone dessinée de logo-affaires-star (1448×1086), mesurée avec sharp en
    *  lecture seule : pixels d'alpha > 2. Boîte dessinée x 25→1446, y 139→928,
    *  soit 1422×790 px (ratio 1,80). */
   logoStarCrop: { top: 12.8, right: 0.07, bottom: 14.46, left: 1.73 } as LogoCrop,
@@ -215,6 +226,8 @@ export const affaires = {
       "YAC Affaires à Fréjus : pièces uniques et petites séries à prix discount, arrivages renouvelés en permanence. Même bâtiment que YAC L'Imbattable, entrée voisine.",
   },
   newStat: { value: "2026", label: "Ouverture le 1er juillet" },
+  /** Date d'ouverture (about + newStat : 1er juillet 2026), pour les données structurées. */
+  openingDate: "2026-07-01",
   offer: {
     title: "Pièces uniques, petites séries :",
     accent: "la chasse est ouverte",
@@ -246,9 +259,15 @@ export const affaires = {
 
 /** Métadonnées globales du site (layout racine). */
 export const siteMeta = {
+  /** Nom de l'ensemble des deux magasins (Organization des données structurées). */
+  name: "YAC Fréjus",
+  url: "https://yacfrejus.fr",
   title: "YAC Fréjus — L'Imbattable & Affaires, deux magasins discount",
+  /** H1 de la home (invisible, sr-only : la home n'affiche que les deux logos). */
+  homeHeading: "YAC Fréjus — L'Imbattable et YAC Affaires, deux magasins discount à Fréjus",
+  /** 148 caractères (Google tronque vers 155). */
   description:
-    "YAC à Fréjus : deux magasins dans le même bâtiment. L'Imbattable, discounter généraliste depuis 1974, et YAC Affaires, la nouvelle adresse de la bonne affaire : pièces uniques et petites séries.",
+    "YAC à Fréjus : L'Imbattable, discounter généraliste depuis 1974, et YAC Affaires, pièces uniques et petites séries. Deux magasins, un même bâtiment.",
   ogDescription:
     "Deux magasins, un même bâtiment : L'Imbattable (discount généraliste depuis 1974) et YAC Affaires (pièces uniques et petites séries) à Fréjus.",
 };
@@ -281,6 +300,8 @@ export const mapsUrl = "https://maps.app.goo.gl/vYBoSbUf5AimuedM8";
  *  (id 0x12cea2c7f027a353:0x8c143b1aa302bee8, GPS 43.4501897, 6.7268917). */
 export const mapsEmbedUrl =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.5!2d6.7268917!3d43.4501897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cea2c7f027a353%3A0x8c143b1aa302bee8!2sYac%20l%27Imbattable!5e0!3m2!1sfr!2sfr!4v1759269600000!5m2!1sfr!2sfr";
+/** Coordonnées GPS de cette fiche Google (les mêmes que dans mapsEmbedUrl). */
+export const storeGeo = { latitude: 43.4501897, longitude: 6.7268917 };
 
 export const hours = [
   { day: "Lundi", hours: "9h00 – 19h30" },
@@ -290,4 +311,50 @@ export const hours = [
   { day: "Vendredi", hours: "9h00 – 19h30" },
   { day: "Samedi", hours: "9h00 – 19h30" },
   { day: "Dimanche", hours: "9h00 – 13h00" },
+];
+
+const lowerFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
+
+/** « du lundi au samedi de 9h00 à 19h30, le dimanche de 9h00 à 13h00 » : jours
+ *  consécutifs aux mêmes horaires regroupés. */
+function hoursSentence(): string {
+  const groups: { first: string; last: string; hours: string }[] = [];
+  for (const { day, hours: h } of hours) {
+    const prev = groups[groups.length - 1];
+    if (prev && prev.hours === h) prev.last = day;
+    else groups.push({ first: day, last: day, hours: h });
+  }
+  return groups
+    .map(({ first, last, hours: h }) => {
+      const [opens, closes] = h.split("–").map((t) => t.trim());
+      const days = first === last ? `le ${lowerFirst(first)}` : `du ${lowerFirst(first)} au ${lowerFirst(last)}`;
+      return `${days} de ${opens} à ${closes}`;
+    })
+    .join(", ");
+}
+
+/** FAQ de /infos (affichée et reprise en JSON-LD FAQPage) : réponses construites
+ *  uniquement à partir des données ci-dessus. Pas de question parking / accès :
+ *  aucune information fournie. */
+export const infosFaq: { question: string; answer: string }[] = [
+  {
+    question: `Quels sont les horaires de ${business.name} ?`,
+    answer: `${business.name} est ouvert 7j/7 : ${hoursSentence()}.`,
+  },
+  {
+    question: "Où se trouvent les magasins YAC à Fréjus ?",
+    answer: `${business.name} se trouve au ${business.address}. ${affaires.locationNote}`,
+  },
+  {
+    question: `Quelle est la différence entre ${business.name} et ${affaires.name} ?`,
+    answer: `${business.name}, discounter depuis ${business.sinceYear}, propose le déstockage de marchandises en tous genres à prix discount suite à saisies, liquidations, fins de séries et changements de collections. ${affaires.name}, ouvert depuis le 1er juillet 2026, propose des pièces uniques et des petites séries issues de palettes de produits mélangés, avec des arrivages renouvelés en permanence.`,
+  },
+  {
+    question: "Peut-on retirer ou déposer un colis chez YAC ?",
+    answer: `Oui. Chez ${business.name}, ${lowerFirst(business.relayPoints.text)} Chez ${affaires.name} (${lowerFirst(affaires.relayPoints.title)}), ${lowerFirst(affaires.relayPoints.text)}`,
+  },
+  {
+    question: "Comment joindre les magasins par téléphone ?",
+    answer: `${business.name} : ${business.phoneDisplay}. ${affaires.name} : ${affaires.phoneDisplay}.`,
+  },
 ];

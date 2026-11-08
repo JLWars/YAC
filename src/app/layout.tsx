@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Caveat, Work_Sans } from "next/font/google";
 import "./globals.css";
-import { siteMeta } from "@/lib/business";
+import { rootMetadata } from "@/lib/seo";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -24,16 +24,7 @@ const caveat = Caveat({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: siteMeta.title,
-  description: siteMeta.description,
-  openGraph: {
-    title: siteMeta.title,
-    description: siteMeta.ogDescription,
-    locale: "fr_FR",
-    type: "website",
-  },
-};
+export const metadata: Metadata = rootMetadata;
 
 export default function RootLayout({
   children,

@@ -24,12 +24,15 @@ import {
   IconTag,
 } from "@/components/icons";
 import { business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
+import JsonLd from "@/components/JsonLd";
+import { imbattableJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/limbattable",
   title: "YAC L'Imbattable — Discounter depuis 1974 à Fréjus",
   description:
     "Déstockage de marchandises en tous genres à prix discount suite à saisies, liquidations, fins de séries, changement de collections. Ouvert 7j/7 à Fréjus.",
-};
+});
 
 const categories = [
   {
@@ -81,6 +84,7 @@ const previewTestimonials = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={imbattableJsonLd} />
       {/* HERO */}
       <Hero variant="imbattable" />
       <FeatureStrip features={business.features} />

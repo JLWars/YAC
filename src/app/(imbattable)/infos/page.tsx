@@ -3,18 +3,22 @@ import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import RelayPoints from "@/components/RelayPoints";
 import StarRating from "@/components/StarRating";
-import { IconClock, IconFacebook, IconPhone, IconPin, IconStar } from "@/components/icons";
-import { business, hours, mapsUrl, mapsEmbedUrl } from "@/lib/business";
+import JsonLd from "@/components/JsonLd";
+import { IconChevronDown, IconClock, IconFacebook, IconPhone, IconPin, IconStar } from "@/components/icons";
+import { business, hours, infosFaq, mapsUrl, mapsEmbedUrl } from "@/lib/business";
+import { infosFaqJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/infos",
   title: "Infos pratiques — YAC L'Imbattable",
   description:
     "Adresse, horaires et téléphone de YAC L'Imbattable à Fréjus. Ouvert 7j/7, itinéraire et carte disponibles.",
-};
+});
 
 export default function InfosPage() {
   return (
     <>
+      <JsonLd data={infosFaqJsonLd} />
       <section className="relative overflow-hidden bg-brand-black text-white">
         <div className="bg-halftone pointer-events-none absolute inset-0 text-white/5" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -175,6 +179,26 @@ export default function InfosPage() {
                 </p>
               </div>
             </a>
+          </div>
+        </Reveal>
+
+        {/* FAQ (reprise en JSON-LD FAQPage) */}
+        <Reveal delay={0.05}>
+          <div className="mt-10 rounded-2xl border-2 border-brand-black bg-brand-cream p-6 shadow-[5px_5px_0_0_#141414] sm:p-8">
+            <h2 className="font-display text-2xl uppercase tracking-tight text-brand-black sm:text-3xl">
+              Questions fréquentes
+            </h2>
+            <div className="mt-5 divide-y divide-brand-black/10 overflow-hidden rounded-xl border border-brand-black/10 bg-white">
+              {infosFaq.map(({ question, answer }) => (
+                <details key={question} className="group">
+                  <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 font-semibold text-brand-black sm:px-6 [&::-webkit-details-marker]:hidden">
+                    {question}
+                    <IconChevronDown className="h-5 w-5 shrink-0 text-brand-red transition-transform group-open:rotate-180" />
+                  </summary>
+                  <p className="px-4 pb-4 leading-relaxed text-brand-black/75 sm:px-6">{answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </Reveal>
       </section>
