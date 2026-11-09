@@ -42,6 +42,15 @@ export type StoreHeroText = { heroEyebrow?: string };
  *  et de sa hauteur (top/bottom). */
 export type LogoCrop = { top: number; right: number; bottom: number; left: number };
 
+/** Avis Google affiché sur le site (voir googleReviews). */
+export type GoogleReview = {
+  author: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  date: string;
+  store: "imbattable" | "affaires";
+  text: string;
+};
+
 /** Logos détourés (fond transparent) utilisés comme logo principal de chaque magasin :
  *  hero, carte de la home et header partagent le même fichier. WebP générés par
  *  scripts/seo-images.mjs depuis les PNG d'origine (photos-source/logos/), même
@@ -323,6 +332,82 @@ export const reviewLinks = {
   read: mapsUrl,
   write: "https://g.page/r/Cei-AqMaOxSMEBM/review",
 };
+
+/** Avis Google réels, recopiés tels quels depuis la fiche (fautes et ponctuation
+ *  comprises : ne rien corriger). Affichés par ReviewsMarquee ; jamais repris en
+ *  données structurées Review / AggregateRating. */
+export const googleReviews: GoogleReview[] = [
+  {
+    author: "Dmitriy S.",
+    rating: 5,
+    date: "décembre 2025",
+    store: "imbattable",
+    text: "Ce magasin est une caverne d’Ali Baba ! Je suis toujours impressionné par la quantité de mille et une petites choses qu’on peut y dénicher. Que vous cherchiez de la nourriture, des outils, des jouets ou des produits de beauté, vous les trouverez ici. Les rayons sont pleins à craquer, l’ambiance est vivante et on a l’impression de faire une chasse au trésor à chaque visite. Un coup de cœur pour ce lieu qui simplifie la vie et où l’on ne repart jamais les mains vides.",
+  },
+  {
+    author: "Gerard S.",
+    rating: 5,
+    date: "juin 2026",
+    store: "imbattable",
+    text: "Le meilleur magasin pour faire les plus belles affaires, c’est une véritable caverne d’Ali baba, et je ne parle meme pas des prix, à faire absolument. Personnel très gentil",
+  },
+  {
+    author: "Laura L.",
+    rating: 5,
+    date: "avril 2026",
+    store: "imbattable",
+    text: "Très bon magasin où on y trouve de tout a des prix vraiment intéressants, la possibilité de récupérer ses colis est également un plus ! Le parking est grand et le personnel sympathique, j’y retournerai !",
+  },
+  {
+    author: "Corinne L.",
+    rating: 5,
+    date: "août 2026",
+    store: "imbattable",
+    text: "On y trouve de tout selon les arrivages a des prix intéressants même des choses auquel on ne penserait pas ..... ouverture même le Dimanche...personnel a l’écoute.mérite le détour.Achat récent d’un très bon matelas de qualité.Merci",
+  },
+  {
+    author: "Jaya D.",
+    rating: 5,
+    date: "mai 2026",
+    store: "imbattable",
+    text: "Quoi dire? On trouve de tout et pas toujours les mêmes produits. Alimentaires et pour la maison avec des prix vraiment imbattables.",
+  },
+  {
+    author: "Patrick G.",
+    rating: 5,
+    date: "novembre 2026",
+    store: "imbattable",
+    text: "Le coin des bonnes affaires pas chères. Personnel super sympa et en plus maintenant une surface avec que des vêtements",
+  },
+  {
+    author: "Sylvain J.",
+    rating: 5,
+    date: "septembre 2026",
+    store: "imbattable",
+    text: "De vrais bonnes affaires, en rayon vaisselle, bricolage et alimentation. Idéal pour passer des vacances à petit prix.",
+  },
+  {
+    author: "Sandy L.",
+    rating: 5,
+    date: "octobre 2026",
+    store: "imbattable",
+    text: "Magasin sympa avec beaucoup de choix que ce soit dans le linge, la vaisselle, la déco les produits ménagers, j’aime beaucoup",
+  },
+  {
+    author: "Fanny A.",
+    rating: 5,
+    date: "janvier 2026",
+    store: "imbattable",
+    text: "C’est un endroit où j’aime aller voir la déco et chercher mes produits ménagers le personnel et le patron sont très sympa et accueillant",
+  },
+  {
+    author: "Stéphane O.",
+    rating: 4,
+    date: "novembre 2025",
+    store: "imbattable",
+    text: "Un discount au personnel avenant et à l’écoute. Quelques arrivages réguliers de nouveaux produits et babioles pour un bon rapport qualité prix. Je recommande",
+  },
+];
 
 /** Coordonnées GPS de cette fiche Google (les mêmes que dans mapsEmbedUrl). */
 export const storeGeo = { latitude: 43.4501897, longitude: 6.7268917 };

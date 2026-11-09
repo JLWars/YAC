@@ -152,6 +152,66 @@ body {
   paint-order: stroke fill;
 }
 
+/* Bande d'avis Google (ReviewsMarquee) : la piste contient deux fois la liste et glisse
+   de -50 %, soit exactement une liste → boucle sans saut. Bords en fondu (masque). */
+@keyframes reviews-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.reviews-marquee-viewport {
+  --marquee-fade: 2rem;
+  overflow: hidden;
+  /* clip : pas de défilement interne, même quand un avis reçoit le focus */
+  overflow: clip;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent);
+}
+@media (min-width: 640px) {
+  .reviews-marquee-viewport {
+    --marquee-fade: 6rem;
+  }
+}
+.reviews-marquee-track {
+  animation: reviews-marquee var(--marquee-duration, 90s) linear infinite;
+}
+/* Pause : doigt posé ou avis ouvert (data-paused), survol à la souris, focus clavier
+   (règle :has séparée : un sélecteur non reconnu invaliderait toute la liste) */
+.reviews-marquee[data-paused] .reviews-marquee-track {
+  animation-play-state: paused;
+}
+@media (hover: hover) and (pointer: fine) {
+  .reviews-marquee:hover .reviews-marquee-track {
+    animation-play-state: paused;
+  }
+}
+.reviews-marquee:has(:focus-visible) .reviews-marquee-track {
+  animation-play-state: paused;
+}
+.reviews-marquee:has(:focus-visible) .reviews-marquee-viewport {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+/* Mouvement réduit : pas d'animation, une seule liste, défilement à la main */
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee-track {
+    animation: none;
+  }
+  .reviews-marquee-copy[aria-hidden] {
+    display: none;
+  }
+  .reviews-marquee-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding-inline: var(--marquee-fade);
+    scroll-padding-inline: var(--marquee-fade);
+  }
+}
+
 /* Carrousels : défilement tactile conservé, barre de défilement masquée */
 .no-scrollbar {
   scrollbar-width: none;

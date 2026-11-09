@@ -9,6 +9,7 @@ import CTAButton from "@/components/CTAButton";
 import StatTile from "@/components/StatTile";
 import StoreGallery from "@/components/StoreGallery";
 import StoreAbout from "@/components/StoreAbout";
+import GoogleReviews from "@/components/reviews/GoogleReviews";
 import {
   IconArrowRight,
   IconClock,
@@ -21,7 +22,7 @@ import {
   IconStar,
   IconTag,
 } from "@/components/icons";
-import { business, mapsEmbedUrl, mapsUrl, reviewLinks, upperFirst } from "@/lib/business";
+import { business, mapsEmbedUrl, mapsUrl } from "@/lib/business";
 import JsonLd from "@/components/JsonLd";
 import { imbattableJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -104,32 +105,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AVIS GOOGLE (aucun témoignage recopié : lien vers la fiche Google) */}
-      <section className="bg-brand-cream py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-brand-black bg-white p-8 text-center shadow-[5px_5px_0_0_#141414] sm:flex-row sm:justify-between sm:text-left">
-              <div>
-                <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-brand-black sm:text-4xl">
-                  {upperFirst(business.reviews.count)} <span className="text-brand-red">sur Google</span>
-                </h2>
-                <p className="mt-2 text-sm text-brand-black/70 sm:text-base">
-                  Ils ont trouvé leur bonne affaire : lisez leurs avis sur notre fiche Google.
-                </p>
-              </div>
-              <CTAButton
-                href={reviewLinks.read}
-                variant="primary"
-                icon={<IconArrowRight className="h-4 w-4" />}
-                className="shrink-0"
-                external
-              >
-                Lire nos avis
-              </CTAButton>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* AVIS GOOGLE : sélection d'avis réels en bande défilante + accès à la fiche */}
+      <GoogleReviews store="imbattable" className="bg-brand-cream" />
 
       {/* INFOS PREVIEW */}
       <section className="bg-brand-black py-16 text-white sm:py-20">

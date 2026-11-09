@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
+import GoogleReviews from "@/components/reviews/GoogleReviews";
 import { IconArrowRight, IconFacebook, IconStar } from "@/components/icons";
 import { business, reviewLinks, upperFirst } from "@/lib/business";
 import { pageMetadata } from "@/lib/seo";
@@ -11,8 +12,8 @@ export const metadata: Metadata = pageMetadata({
   description: `${business.name} : ${business.reviews.label}. Découvrez ce que pensent nos clients de Fréjus.`,
 });
 
-/** Pas de témoignages recopiés sur le site : les avis se lisent et se laissent sur la
- *  fiche Google. */
+/** Une sélection d'avis Google réels défile sous la bannière ; tous les avis se lisent
+ *  et se laissent sur la fiche Google. */
 export default function AvisPage() {
   return (
     <>
@@ -65,6 +66,8 @@ export default function AvisPage() {
         </div>
         <div className="bg-hazard-stripes h-5 w-full sm:h-6" />
       </section>
+
+      <GoogleReviews store="imbattable" className="bg-brand-cream" />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <Reveal>
