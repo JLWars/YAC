@@ -67,7 +67,8 @@ export default function AvisPage() {
         <div className="bg-hazard-stripes h-5 w-full sm:h-6" />
       </section>
 
-      <GoogleReviews store="imbattable" className="bg-brand-cream" />
+      {/* Boutons « Lire nos avis » / « Laisser un avis » : déjà dans la bannière */}
+      <GoogleReviews store="imbattable" className="bg-brand-cream" actions={false} />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <Reveal>
