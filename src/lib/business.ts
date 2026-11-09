@@ -316,10 +316,13 @@ export const mapsUrl = "https://maps.app.goo.gl/vYBoSbUf5AimuedM8";
  *  (id 0x12cea2c7f027a353:0x8c143b1aa302bee8, GPS 43.4501897, 6.7268917). */
 export const mapsEmbedUrl =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.5!2d6.7268917!3d43.4501897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cea2c7f027a353%3A0x8c143b1aa302bee8!2sYac%20l%27Imbattable!5e0!3m2!1sfr!2sfr!4v1759269600000!5m2!1sfr!2sfr";
-/** Boutons d'avis : la fiche Google Maps (avis à lire, et « Écrire un avis » depuis la
- *  fiche). `write` est à remplacer par le lien direct vers le formulaire d'avis
- *  (fiche Google Business → « Demander des avis ») quand il sera fourni. */
-export const reviewLinks = { read: mapsUrl, write: mapsUrl };
+/** Boutons d'avis : `read` ouvre la fiche Google Maps (« Lire nos avis »), `write` le
+ *  formulaire d'avis direct (fiche Google Business → « Demander des avis »), pour tous
+ *  les boutons « Laisser un avis ». */
+export const reviewLinks = {
+  read: mapsUrl,
+  write: "https://g.page/r/Cei-AqMaOxSMEBM/review",
+};
 
 /** Coordonnées GPS de cette fiche Google (les mêmes que dans mapsEmbedUrl). */
 export const storeGeo = { latitude: 43.4501897, longitude: 6.7268917 };
